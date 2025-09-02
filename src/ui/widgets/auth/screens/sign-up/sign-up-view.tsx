@@ -1,9 +1,7 @@
-import { Text, View } from "react-native";
+import { Text } from "@/src/ui/gluestack/text";
 
 export const SignUpView = () => {
 	return (
-		<View>
-			<Text>Bem vindo!</Text>
-		</View>
+		<Text>Bem vindo!</Text>
 	);
 };
