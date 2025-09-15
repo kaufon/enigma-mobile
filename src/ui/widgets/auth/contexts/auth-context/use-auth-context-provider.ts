@@ -1,8 +1,7 @@
+import { apiClient } from "@/src/api/axios";
 import { useNavigation } from "@/src/ui/widgets/global/hooks";
 import { useSecureStore } from "@/src/ui/widgets/global/hooks";
-import type { AuthContextValue } from "./auth-context-value";
 import { useEffect, useState } from "react";
-import { apiClient } from "@/src/api/axios/client";
 
 type AuthState = {
 	accessToken: string | null;
@@ -25,7 +24,7 @@ export function useAuthContextProvider() {
 	useEffect(() => {
 		const loadSession = async () => {
 			try {
-				const accessToken = await secureStore.getItem("acessToken");
+				const accessToken = await secureStore.getItem("accessToken");
 				const refreshToken = await secureStore.getItem("refreshToken");
 				if (accessToken && refreshToken) {
 					apiClient.defaults.headers.common["Authorization"] =
@@ -47,16 +46,18 @@ export function useAuthContextProvider() {
 	}, [secureStore]);
 	const signIn = async (email: string, password: string) => {
 		try {
-			const response = await apiClient.post("/auth/sign-in", {
-				email,
-				password,
-			});
-			const { accessToken, refreshToken } = response.data;
+			const response = await apiClient.post<{ accessToken: string,refreshToken:string }>(
+				"/auth/sign-in",
+				{
+					email,
+					password,
+				},
+			);
+			const { accessToken,refreshToken } = response.data;
 
 			await secureStore.setItem("accessToken", accessToken);
 			await secureStore.setItem("refreshToken", refreshToken);
-			apiClient.defaults.headers.common["Authorization"] =
-				`Bearer ${accessToken}`;
+      apiClient.setHeader('Authorization',`Bearer ${accessToken}`)
 			setAuthState({
 				accessToken,
 				refreshToken,
@@ -64,7 +65,7 @@ export function useAuthContextProvider() {
 				isLoading: false,
 			});
 		} catch (e) {
-			throw new Error("Invalid email or password.");
+			throw new Error(e);
 		}
 	};
 	const signOut = async () => {

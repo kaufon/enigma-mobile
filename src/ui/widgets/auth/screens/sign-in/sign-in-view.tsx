@@ -1,14 +1,10 @@
 import { ScreenContainer } from "@/src/ui/widgets/global/components/screen-container";
-import { Text } from "react-native";
+import { SignInFormView } from "./sign-in-form/sign-in-form-view";
 
-type Props = {
-	onSignIn: (email: string, password: string) => Promise<void>;
-};
-
-export const SignInScreenView = () => {
+export const SignInScreenView = (props) => {
 	return (
 		<ScreenContainer>
-			<Text>oia</Text>
+			<SignInFormView {...props} />
 		</ScreenContainer>
 	);
 };

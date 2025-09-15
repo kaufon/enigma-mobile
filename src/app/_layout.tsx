@@ -11,6 +11,7 @@ import { useColorScheme } from "react-native";
 import { Slot } from "expo-router";
 
 import "../ui/styles/global.css";
+import { AuthContextProvider } from "@/src/ui/widgets/auth/contexts/auth-context";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -40,10 +41,12 @@ function RootLayoutNav() {
 	const colorScheme = useColorScheme();
 
 	return (
+    <AuthContextProvider>
 		<GluestackUIProvider mode={colorScheme === "dark" ? "dark" : "light"}>
 			<ThemeProvider value={DarkTheme}>
 				<Slot />
 			</ThemeProvider>
 		</GluestackUIProvider>
+  </AuthContextProvider>
 	);
 }
