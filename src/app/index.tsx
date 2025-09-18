@@ -1,5 +1,7 @@
-import { SignInScreen } from "@/src/ui/widgets/auth/screens/sign-in";
+import { Redirect } from 'expo-router'
 
-export default function Home() {
-	return <SignInScreen />;
+const Index = () => {
+  return <Redirect href='/auth/sign-in' />
 }
+
+export default Index

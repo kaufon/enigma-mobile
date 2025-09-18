@@ -1,7 +1,9 @@
-import { apiClient } from "@/src/api/axios";
+import { useRest } from "@/src/hooks";
 import { useNavigation } from "@/src/ui/widgets/global/hooks";
 import { useSecureStore } from "@/src/ui/widgets/global/hooks";
 import { useEffect, useState } from "react";
+import { restClient as apiClient } from "@/src/hooks/use-rest";
+import { useToast } from "@/src/hooks/use-toast";
 
 type AuthState = {
 	accessToken: string | null;
@@ -21,14 +23,15 @@ export function useAuthContextProvider() {
 	const secureStore = useSecureStore();
 	const navigation = useNavigation();
 	const [authState, setAuthState] = useState<AuthState>(initialState);
+	const { authService } = useRest();
+	const { show } = useToast();
 	useEffect(() => {
 		const loadSession = async () => {
 			try {
 				const accessToken = await secureStore.getItem("accessToken");
 				const refreshToken = await secureStore.getItem("refreshToken");
 				if (accessToken && refreshToken) {
-					apiClient.defaults.headers.common["Authorization"] =
-						`Bearer ${accessToken}`;
+					apiClient.setHeader("Authorization", `Bearer ${accessToken}`);
 					setAuthState({
 						accessToken,
 						refreshToken,
@@ -46,33 +49,32 @@ export function useAuthContextProvider() {
 	}, [secureStore]);
 	const signIn = async (email: string, password: string) => {
 		try {
-			const response = await apiClient.post<{ accessToken: string,refreshToken:string }>(
-				"/auth/sign-in",
-				{
-					email,
-					password,
-				},
-			);
-			const { accessToken,refreshToken } = response.data;
-
-			await secureStore.setItem("accessToken", accessToken);
-			await secureStore.setItem("refreshToken", refreshToken);
-      apiClient.setHeader('Authorization',`Bearer ${accessToken}`)
-			setAuthState({
-				accessToken,
-				refreshToken,
-				authenticated: true,
-				isLoading: false,
-			});
-		} catch (e) {
-			throw new Error(e);
+			const response = await authService.signIn(email, password);
+			if (response.isSuccess) {
+				const { accessToken } = response.body;
+				const refreshToken = "123-teste";
+				await secureStore.setItem("accessToken", accessToken);
+				await secureStore.setItem("refreshToken", refreshToken);
+				apiClient.setHeader("Authorization", `Bearer ${accessToken}`);
+				setAuthState({
+					accessToken,
+					refreshToken,
+					authenticated: true,
+					isLoading: false,
+				});
+			}
+			if (response.isFailure) {
+				show("Credenciais inválidas", "error");
+			}
+		} catch (error) {
+			show("Ocorreu um erro inesperado. Tente novamente mais tarde.", "error");
 		}
 	};
 	const signOut = async () => {
 		await secureStore.deleteItem("accessToken");
 		await secureStore.deleteItem("refreshToken");
 
-		apiClient.defaults.headers.common["Authorization"] = "";
+		apiClient.setHeader("Authorization", "");
 
 		setAuthState({
 			accessToken: null,

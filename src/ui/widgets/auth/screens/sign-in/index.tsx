@@ -1,16 +1,17 @@
-import { SignInScreenView } from "./sign-in-view";
 import { useAuthContext } from "@/src/ui/widgets/global/hooks";
-import { useSignInScreen } from './use-sign-in-screen'; // Nosso ViewModel
+import { SignInScreenView } from "./sign-in-view";
+import { useSignInScreen } from "./use-sign-in-screen";
+import { Redirect } from "expo-router";
 
 export const SignInScreen = () => {
-  // 1. Pega a função de negócio do nosso "Model" (AuthContext)
-  const { signIn } = useAuthContext();
+	const { signIn, authenticated } = useAuthContext();
+	const { handleSignIn } = useSignInScreen({
+		signInAccount: signIn,
+	});
 
-  // 2. Inicializa nosso ViewModel, passando a função de negócio
-  const viewModel = useSignInScreen({
-    onSignIn: signIn,
-  });
+	if (authenticated) {
+		return <Redirect href="/(protected)/credential/test" />;
+	}
 
-  // 3. Renderiza a View, passando todas as propriedades do ViewModel
-  return <SignInScreenView {...viewModel} />;
+	return <SignInScreenView onSignIn={handleSignIn} />;
 };

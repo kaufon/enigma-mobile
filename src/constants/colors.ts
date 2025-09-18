@@ -1,22 +1,32 @@
-
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
+export const COLORS = {
   light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
+    primary: '#3E996C',
+    danger: '#D93636',
+    warning: '#D4A83E',
+    info: '#E66A43',
+    background: '#F7F7FA',
+    surface: '#FFFFFF',
+    neutral: '#5C5A66',
+    accent: '#18171F',
+    primaryBackground: '#3E996C40',
+    dangerBackground: '#D9363640',
+    warningBackground: '#F8CD6540',
+    infoBackground: '#E66A4340',
+    neutralBackground: '#5C5A6640',
   },
   dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
+    primary: '#49B480',
+    danger: '#F64A4A',
+    warning: '#F8CD65',
+    info: '#FB7C58',
+    background: '#18171F',
+    surface: '#212028',
+    neutral: '#837F92',
+    accent: '#E6E5EA',
+    primaryBackground: '#49B4801A',
+    dangerBackground: '#F64A4A1A',
+    warningBackground: '#F8CD6540',
+    infoBackground: '#FB7C5840',
+    neutralBackground: '#837F9240',
   },
-};
+}

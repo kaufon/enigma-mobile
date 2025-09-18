@@ -1,17 +1,13 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import {
-	DarkTheme,
-	ThemeProvider,
-} from "@react-navigation/native";
+import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
-import { GluestackUIProvider } from "@/src/ui/gluestack/gluestack-ui-provider";
-import { useColorScheme } from "react-native";
 import { Slot } from "expo-router";
 
 import "../ui/styles/global.css";
 import { AuthContextProvider } from "@/src/ui/widgets/auth/contexts/auth-context";
+import { UiProvider } from "@/src/ui/gluestack/ui-provider";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -38,15 +34,13 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-	const colorScheme = useColorScheme();
-
 	return (
-    <AuthContextProvider>
-		<GluestackUIProvider mode={colorScheme === "dark" ? "dark" : "light"}>
+		<UiProvider>
 			<ThemeProvider value={DarkTheme}>
-				<Slot />
+				<AuthContextProvider>
+					<Slot />
+				</AuthContextProvider>
 			</ThemeProvider>
-		</GluestackUIProvider>
-  </AuthContextProvider>
+		</UiProvider>
 	);
 }
