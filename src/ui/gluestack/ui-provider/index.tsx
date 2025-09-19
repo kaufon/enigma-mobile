@@ -4,7 +4,7 @@ import { GluestackUIProvider } from '../gluestack-ui-provider'
 export const UiProvider = ({ children }: { children: React.ReactNode }) => {
   const colorScheme = useColorScheme()
   return (
-    <GluestackUIProvider mode={colorScheme === 'dark' ? 'dark' : 'light'}>
+    <GluestackUIProvider mode={colorScheme === 'dark' ? 'dark' : 'light'} >
       {children}
     </GluestackUIProvider>
   )

@@ -2,7 +2,7 @@ import { ApiClient } from "@/src/api/axios/clients/axios-client";
 import { AuthService } from "@/src/api/services";
 import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 
-const baseURL = "http://192.168.0.36:3333";
+const baseURL = "http://192.168.50.39:3333";
 export const restClient = new ApiClient(baseURL);
 
 export function useRest() {

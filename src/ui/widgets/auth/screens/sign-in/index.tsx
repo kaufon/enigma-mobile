@@ -10,7 +10,7 @@ export const SignInScreen = () => {
 	});
 
 	if (authenticated) {
-		return <Redirect href="/(protected)/credential/test" />;
+		return <Redirect href="/(protected)/vault" />;
 	}
 
 	return <SignInScreenView onSignIn={handleSignIn} />;
