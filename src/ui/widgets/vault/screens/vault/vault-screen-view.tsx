@@ -1,10 +1,7 @@
-import { Box } from "@/src/ui/gluestack/box"
-import { Text, View } from "@/src/ui/widgets/global/components/Themed"
+import { VaultItemsTypesView } from "@/src/ui/widgets/vault/screens/vault/vault-items-types/vault-items-types-view";
 
-export const CredentialsScreenView = () => {
-  return (
-  <Box>
-      <Text>''</Text>
-    </Box>
-  )
-}
+export const VaultScreenView = () => {
+	return (
+			<VaultItemsTypesView />
+	);
+};

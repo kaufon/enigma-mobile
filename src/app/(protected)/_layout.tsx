@@ -1,13 +1,8 @@
 import { Redirect, Tabs } from "expo-router";
 import { useAuthContext } from "@/src/ui/widgets/global/hooks";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Icon } from "@/src/ui/widgets/global/components/icon";
 
-function TabBarIcon(props: {
-	name: React.ComponentProps<typeof FontAwesome>["name"];
-	color: string;
-}) {
-	return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+
 export default function TabLayout() {
 	const { authenticated } = useAuthContext();
 
@@ -18,7 +13,7 @@ export default function TabLayout() {
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: "blue",
+				tabBarActiveTintColor: `#599BFF`, 
 				headerShown: false,
 			}}
 		>
@@ -26,21 +21,31 @@ export default function TabLayout() {
 				name="vault"
 				options={{
 					title: "Meu cofre",
-					tabBarIcon: ({ color }) => <TabBarIcon name="key" color={color} />,
+					tabBarIcon: ({ focused }) => (
+						<Icon name="shield-user" color={focused ? "primary" : "neutral"} />
+					),
 				}}
 			/>
 			<Tabs.Screen
-				name="password-generator" 
+				name="password-generator"
 				options={{
 					title: "Gerador",
-					tabBarIcon: ({ color }) => <TabBarIcon name="cogs" color={color} />,
+					tabBarIcon: ({ focused }) => (
+						<Icon name="generator" color={focused ? "primary" : "neutral"} />
+					),
 				}}
 			/>
 			<Tabs.Screen
-				name="configuration" 
+				name="configuration"
 				options={{
 					title: "Configuração",
-					tabBarIcon: ({ color }) => <TabBarIcon name="cog" color={color} />,
+					// 👇 E para o último também
+					tabBarIcon: ({ focused }) => (
+						<Icon
+							name="configuration"
+							color={focused ? "primary" : "neutral"}
+						/>
+					),
 				}}
 			/>
 		</Tabs>

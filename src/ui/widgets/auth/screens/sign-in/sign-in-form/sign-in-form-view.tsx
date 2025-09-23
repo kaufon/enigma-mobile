@@ -48,12 +48,12 @@ export const SignInFormView = ({ onSignIn }: Props) => {
 				</Link>
 			</Box>
 
-			<Box className="mt-12 bg-white">
+			<Box className="mt-12 bg-primary">
 				<Button
 					onPress={handleSubmit}
 					isDisabled={!isValid}
 					isLoading={isSubmitting}
-          className="bg-white"
+          className="bg-[#599BFF] text-white"
 				>
 					Entrar
 				</Button>

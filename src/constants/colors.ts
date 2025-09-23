@@ -1,32 +1,34 @@
 export const COLORS = {
-  light: {
-    primary: '#3E996C',
-    danger: '#D93636',
-    warning: '#D4A83E',
-    info: '#E66A43',
-    background: '#F7F7FA',
-    surface: '#FFFFFF',
-    neutral: '#5C5A66',
-    accent: '#18171F',
-    primaryBackground: '#3E996C40',
-    dangerBackground: '#D9363640',
-    warningBackground: '#F8CD6540',
-    infoBackground: '#E66A4340',
-    neutralBackground: '#5C5A6640',
-  },
-  dark: {
-    primary: '#49B480',
-    danger: '#F64A4A',
-    warning: '#F8CD65',
-    info: '#FB7C58',
-    background: '#18171F',
-    surface: '#212028',
-    neutral: '#837F92',
-    accent: '#E6E5EA',
-    primaryBackground: '#49B4801A',
-    dangerBackground: '#F64A4A1A',
-    warningBackground: '#F8CD6540',
-    infoBackground: '#FB7C5840',
-    neutralBackground: '#837F9240',
-  },
-}
+	light: {
+		primary: "#175DDC", // Azul primário para ações, com ótimo contraste no claro
+		brand: "#175DDC", // A cor exata da marca Bitwarden
+		danger: "#DC3545",
+		warning: "#FFC107",
+		info: "#17A2B8",
+		background: "#F8F9FA",
+		surface: "#FFFFFF",
+		neutral: "#6C757D",
+		accent: "#212529", // Texto principal mais escuro
+		primaryBackground: "#175DDC1A", // Fundo com 10% de opacidade do azul primário
+		dangerBackground: "#DC35451A",
+		warningBackground: "#FFC1071A",
+		infoBackground: "#17A2B81A",
+		neutralBackground: "#6C757D1A",
+	},
+	dark: {
+		primary: "#599BFF", // Azul claro e vibrante para ações no tema escuro (ótimo contraste)
+		brand: "#175DDC", // A cor exata da marca Bitwarden (use para logos, não para texto/botões)
+		danger: "#F25C5C",
+		warning: "#FDCB6E",
+		info: "#8BE9FD",
+		background: "#202632", // Fundo escuro mais fiel ao app Bitwarden
+		surface: "#292E33", // Cor de cards/inputs mais fiel ao app
+		neutral: "#A9AFB7",
+		accent: "#EBEFF3", // Texto principal quase branco
+		primaryBackground: "#599BFF1A",
+		dangerBackground: "#F25C5C1A",
+		warningBackground: "#FDCB6E1A",
+		infoBackground: "#8BE9FD1A",
+		neutralBackground: "#A9AFB71A",
+	},
+};

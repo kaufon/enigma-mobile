@@ -1,7 +1,9 @@
-import type { PropsWithChildren } from 'react'
+import type { PropsWithChildren } from "react";
 
-import { Box } from '@/src/ui/gluestack/box' 
+import { Box } from "@/src/ui/gluestack/box";
 
 export const ScreenContainerView = ({ children }: PropsWithChildren) => {
-  return <Box className='flex-1 h-full px-6 pt-16 bg-background'>{children}</Box>
-}
+	return (
+		<Box className={`flex-1 h-full px-6  pt-16 bg-[#1C2025]`}>{children}</Box>
+	);
+};
