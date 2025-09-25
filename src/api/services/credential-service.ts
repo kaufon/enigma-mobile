@@ -25,7 +25,7 @@ export const CredentialsService = (
 			return response;
 		},
 		async delete(id: string): Promise<ApiResponse<void>> {
-			const response = await apiClient.delete<void>(`/credentials/${id}`);
+			const response = await apiClient.delete<void>(`/credentials/delete/${id}`);
 			return response;
 		},
 		async getById(id: string): Promise<ApiResponse<CredentialDto>> {

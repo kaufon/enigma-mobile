@@ -3,7 +3,8 @@ import { Link, Stack } from "expo-router";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import { useToast } from "@/src/hooks/use-toast";
-import { CredentialDto } from "@/src/core/dtos/credentials";
+import type { CredentialDto } from "@/src/core/dtos/credentials";
+import { useState } from "react";
 
 const DetailField = ({
 	label,
@@ -11,11 +12,17 @@ const DetailField = ({
 	isSecret = false,
 }: { label: string; value?: string; isSecret?: boolean }) => {
 	const { show } = useToast();
+	// 2. Adicione um estado para controlar a visibilidade
+	const [isVisible, setIsVisible] = useState(false);
 
 	const copyToClipboard = async () => {
 		if (!value) return;
-		await Clipboard.setString(value);
+		await Clipboard.setString(value); // Use setStringAsync
 		show(`${label} copiado!`, "success");
+	};
+
+	const toggleVisibility = () => {
+		setIsVisible(!isVisible);
 	};
 
 	if (!value) return null;
@@ -25,27 +32,33 @@ const DetailField = ({
 			<Text className="text-xs uppercase text-neutral-500">{label}</Text>
 			<View className="flex-row items-center justify-between">
 				<Text className="text-lg text-accent-500">
-					{isSecret ? "••••••••••••" : value}
+					{/* 3. Lógica para mostrar/esconder o valor */}
+					{isSecret && !isVisible ? "••••••••••••" : value}
 				</Text>
-				<Pressable onPress={copyToClipboard} className="p-2">
-					<Icon name="copy" size={20} />
-				</Pressable>
+
+				{/* Container para os ícones de ação */}
+				<View className="flex-row items-center space-x-2">
+					{/* 4. Ícone de olho que alterna a visibilidade */}
+					{isSecret && (
+						<Pressable onPress={toggleVisibility} className="p-2">
+							<Icon name={isVisible ? "eye-open" : "eye-close"} size={20} />
+						</Pressable>
+					)}
+					<Pressable onPress={copyToClipboard} className="p-2">
+						<Icon name="copy" size={20} />
+					</Pressable>
+				</View>
 			</View>
 		</View>
 	);
 };
-
 type Props = {
 	id: string;
 	isLoading: boolean;
 	credential: CredentialDto;
 };
 
-export const CredentialDetailsView = ({
-	id,
-	isLoading,
-	credential,
-}: Props) => {
+export const CredentialDetailsView = ({ id, isLoading, credential }: Props) => {
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
 	}
@@ -64,7 +77,7 @@ export const CredentialDetailsView = ({
 
 			<Link href={`/vault/credentials/${id}/edit`} asChild>
 				<Pressable className="mt-6 bg-primary-500 p-3 rounded-md flex-row items-center justify-center">
-					<Icon name="note" size={16} className="text-white mr-2" />
+					<Icon name="note" size={16} color="accent"/>
 					<Text className="text-white font-bold">Editar</Text>
 				</Pressable>
 			</Link>
