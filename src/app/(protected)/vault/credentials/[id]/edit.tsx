@@ -6,6 +6,7 @@ import { ControlledInput } from "@/src/ui/widgets/global/components/controlled-i
 import { SelectInput } from "@/src/ui/widgets/global/components/select-input";
 import { Button } from "@/src/ui/widgets/global/components/button";
 import { useEditCredentialForm } from "@/src/ui/widgets/vault/screens/credentials/credetials-list/edit-credential-form/use-edit-credential-form";
+import { CategorySelect } from "@/src/ui/widgets/global/components/category-select/category-select-view";
 
 export default function EditCredentialScreen() {
 	const { id } = useLocalSearchParams<{ id: string }>();
@@ -14,8 +15,14 @@ export default function EditCredentialScreen() {
 		return <Text>ID da credencial não encontrado.</Text>;
 	}
 
-	const { control, handleSubmit, isSubmitting, isValid, isLoadingData } =
-		useEditCredentialForm(id);
+	const {
+		control,
+		handleSubmit,
+		isSubmitting,
+		isValid,
+		isLoadingData,
+		folders,
+	} = useEditCredentialForm(id);
 
 	if (isLoadingData) {
 		return <ActivityIndicator size="large" className="flex-1" />;
@@ -28,7 +35,12 @@ export default function EditCredentialScreen() {
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<FormSection title="Informações do Item" />
 				<ControlledInput name="title" control={control} label="Nome" />
-				<SelectInput label="Pasta" value="Nenhuma pasta" />
+				<CategorySelect
+					name="categoryId"
+					control={control}
+					folders={folders}
+					label="Pasta"
+				/>
 
 				<FormSection title="Credenciais" />
 				<ControlledInput

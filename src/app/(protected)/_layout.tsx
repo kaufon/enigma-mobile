@@ -1,20 +1,26 @@
 import { Redirect, Tabs } from "expo-router";
 import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
-
+import { COLORS } from "@/src/constants";
+import { useColorScheme } from "nativewind";
 
 export default function TabLayout() {
 	const { authenticated } = useAuthContext();
-
+	const { colorScheme } = useColorScheme();
 	if (!authenticated) {
 		return <Redirect href="/auth/sign-in" />;
 	}
-
+	const theme = COLORS[colorScheme || "light"];
 	return (
 		<Tabs
 			screenOptions={{
-				tabBarActiveTintColor: `#599BFF`, 
+				tabBarActiveTintColor: theme.primary,
 				headerShown: false,
+				tabBarStyle: {
+					backgroundColor: theme.surface,
+					borderTopWidth: 0,
+					elevation: 0,
+				},
 			}}
 		>
 			<Tabs.Screen
@@ -39,7 +45,6 @@ export default function TabLayout() {
 				name="configuration"
 				options={{
 					title: "Configuração",
-					// 👇 E para o último também
 					tabBarIcon: ({ focused }) => (
 						<Icon
 							name="configuration"

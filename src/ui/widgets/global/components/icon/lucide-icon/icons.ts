@@ -37,6 +37,8 @@ import {
 	RefreshCcwDot,
 	Settings,
 	X,
+	Folder,
+	Pen,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -79,4 +81,6 @@ export const ICONS: Record<IconName, LucideIcon> = {
 	generator: RefreshCcwDot,
 	configuration: Settings,
 	x: X,
+	folder: Folder,
+	pen: Pen,
 };

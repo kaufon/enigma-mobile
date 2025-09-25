@@ -12,7 +12,6 @@ const DetailField = ({
 	isSecret = false,
 }: { label: string; value?: string; isSecret?: boolean }) => {
 	const { show } = useToast();
-	// 2. Adicione um estado para controlar a visibilidade
 	const [isVisible, setIsVisible] = useState(false);
 
 	const copyToClipboard = async () => {
@@ -32,13 +31,10 @@ const DetailField = ({
 			<Text className="text-xs uppercase text-neutral-500">{label}</Text>
 			<View className="flex-row items-center justify-between">
 				<Text className="text-lg text-accent-500">
-					{/* 3. Lógica para mostrar/esconder o valor */}
 					{isSecret && !isVisible ? "••••••••••••" : value}
 				</Text>
 
-				{/* Container para os ícones de ação */}
 				<View className="flex-row items-center space-x-2">
-					{/* 4. Ícone de olho que alterna a visibilidade */}
 					{isSecret && (
 						<Pressable onPress={toggleVisibility} className="p-2">
 							<Icon name={isVisible ? "eye-open" : "eye-close"} size={20} />
@@ -56,9 +52,15 @@ type Props = {
 	id: string;
 	isLoading: boolean;
 	credential: CredentialDto;
+	folderName?: string;
 };
 
-export const CredentialDetailsView = ({ id, isLoading, credential }: Props) => {
+export const CredentialDetailsView = ({
+	id,
+	isLoading,
+	credential,
+	folderName,
+}: Props) => {
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
 	}
@@ -74,10 +76,11 @@ export const CredentialDetailsView = ({ id, isLoading, credential }: Props) => {
 			<DetailField label="Nome de usuário" value={credential.username} />
 			<DetailField label="Senha" value={credential.password} isSecret />
 			<DetailField label="URL" value={credential.url} />
+			<DetailField label="Pasta" value={folderName} />
 
 			<Link href={`/vault/credentials/${id}/edit`} asChild>
 				<Pressable className="mt-6 bg-primary-500 p-3 rounded-md flex-row items-center justify-center">
-					<Icon name="note" size={16} color="accent"/>
+					<Icon name="note" size={16} color="accent" />
 					<Text className="text-white font-bold">Editar</Text>
 				</Pressable>
 			</Link>

@@ -37,7 +37,7 @@ export const CredentialListItemView = ({
 
 			<View className="flex-row items-center p-2">
 				<Pressable onPress={onEdit} className="p-2">
-					<Icon name="note" size={20} />
+					<Icon name="pen" size={20} />
 				</Pressable>
 				<Pressable onPress={onDelete} className="p-2">
 					<Icon name="trash" size={20} />

@@ -35,4 +35,6 @@ export type IconName =
 	| "education"
 	| "travel"
 	| "service"
-	| "x";
+	| "x"
+	| "folder"
+  | "pen"
