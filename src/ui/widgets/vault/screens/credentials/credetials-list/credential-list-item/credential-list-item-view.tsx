@@ -8,6 +8,8 @@ type Props = {
 	onPress: () => void;
 	onEdit: () => void;
 	onDelete: () => void;
+	showEdit?: boolean;
+	showDelete?: boolean;
 };
 
 export const CredentialListItemView = ({
@@ -15,6 +17,8 @@ export const CredentialListItemView = ({
 	onPress,
 	onDelete,
 	onEdit,
+	showEdit = true,
+	showDelete = true,
 }: Props) => {
 	return (
 		<Pressable
@@ -36,12 +40,16 @@ export const CredentialListItemView = ({
 			</View>
 
 			<View className="flex-row items-center p-2">
-				<Pressable onPress={onEdit} className="p-2">
-					<Icon name="pen" size={20} />
-				</Pressable>
-				<Pressable onPress={onDelete} className="p-2">
-					<Icon name="trash" size={20} />
-				</Pressable>
+				{showEdit && (
+					<Pressable onPress={onEdit} className="p-2">
+						<Icon name="pen" size={20} />
+					</Pressable>
+				)}
+				{showDelete && (
+					<Pressable onPress={onDelete} className="p-2">
+						<Icon name="trash" size={20} />
+					</Pressable>
+				)}
 			</View>
 		</Pressable>
 	);

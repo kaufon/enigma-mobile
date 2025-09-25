@@ -9,7 +9,7 @@ import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import { Sheet } from "@/src/ui/widgets/global/components/action-sheet";
 import type { FolderDto } from "@/src/core/dtos/folder";
-import { Box } from "@/src/ui/gluestack/box"; // 👈 Importe o Box para layout
+import { Box } from "@/src/ui/gluestack/box"; 
 
 type Props = {
 	control: any;

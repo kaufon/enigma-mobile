@@ -14,6 +14,9 @@ type Props = {
 	onDeleteCredential: (id: string) => void;
 	onEditCredential: (id: string) => void;
 	onSucess: VoidFunction;
+	showEdit?: boolean;
+	showDelete?: boolean;
+	showFab?: boolean;
 };
 
 const ListSeparator = () => <View className="h-px bg-surface-500" />;
@@ -24,6 +27,9 @@ export const CredentialsListView = ({
 	onSelectCredential,
 	onDeleteCredential,
 	onEditCredential,
+	showEdit = true,
+	showDelete = true,
+	showFab = true,
 }: Props) => {
 	const { navigate } = useNavigation();
 
@@ -38,6 +44,8 @@ export const CredentialsListView = ({
 				keyExtractor={(item) => item.id as string}
 				renderItem={({ item }) => (
 					<CredentialListItem
+						showEdit={showEdit}
+						showDelete={showDelete}
 						credential={item}
 						onPress={() => onSelectCredential(item.id as string)}
 						onDelete={() => onDeleteCredential(item.id as string)}
@@ -53,10 +61,12 @@ export const CredentialsListView = ({
 				contentContainerStyle={{ paddingHorizontal: 16, paddingBottom: 80 }}
 			/>
 
-			<FloatingActionButton
-				onPress={() => navigate("/vault/credentials/create")}
-				iconName="plus"
-			/>
+			{showFab && (
+				<FloatingActionButton
+					onPress={() => navigate("/vault/credentials/create")}
+					iconName="plus"
+				/>
+			)}
 		</View>
 	);
 };

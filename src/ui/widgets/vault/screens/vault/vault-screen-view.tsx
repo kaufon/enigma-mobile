@@ -4,6 +4,7 @@ import { FloatingActionButton } from "@/src/ui/widgets/global/components/floatin
 import { VaultSectionHeader } from "@/src/ui/widgets/vault/components/vault-section-header";
 import { VaultListItem } from "@/src/ui/widgets/vault/screens/vault/vault-list-item";
 import type { FolderDto } from "@/src/core/dtos/folder";
+import { VaultFabMenu } from "@/src/ui/widgets/vault/components/vault-fab-menu";
 
 type Props = {
 	folders: FolderDto[];
@@ -38,13 +39,13 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 							label={folder.name}
 							iconName="folder"
 							count={1}
-							href={`/(protected)/vault/credentials/${folder.id}`}
+							href={`/(protected)/vault/folders/${folder.id}`}
 						/>
 					))}
 				</View>
 			</ScrollView>
 
-			<FloatingActionButton onPress={() => {}} iconName="plus" />
+			<VaultFabMenu />
 		</View>
 	);
 };

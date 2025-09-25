@@ -1,4 +1,8 @@
 export type FolderDto = {
 	id?: string;
-  name:string
-}
+	name: string;
+	credentials?: Array<{
+		id: string;
+		title: string;
+	}>;
+};

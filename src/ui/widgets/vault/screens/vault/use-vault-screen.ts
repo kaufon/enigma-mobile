@@ -1,5 +1,6 @@
 import type { FolderDto } from "@/src/core/dtos/folder";
 import { useRest } from "@/src/hooks";
+import { useFocusEffect } from "expo-router";
 import { useEffect, useState, useCallback } from "react";
 
 export const useVaultScreenViewModel = () => {
@@ -19,9 +20,11 @@ export const useVaultScreenViewModel = () => {
 		}
 	}, [foldersService]);
 
-	useEffect(() => {
-		loadFolders();
-	}, [loadFolders]);
+	useFocusEffect(
+		useCallback(() => {
+			loadFolders();
+		}, [loadFolders]),
+	);
 
 	return { folders, isLoading };
 };
