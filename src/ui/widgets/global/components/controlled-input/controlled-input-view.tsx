@@ -13,6 +13,7 @@ type Props<T extends FieldValues> = {
 	label: string;
 	placeholder?: string;
 	isPassword?: boolean;
+  isReadOnly?: boolean;
 };
 
 export const ControlledInput = <T extends FieldValues>({
@@ -30,6 +31,7 @@ export const ControlledInput = <T extends FieldValues>({
 			}) => (
 				<>
 					<FormInput
+            isReadOnly={props.isReadOnly}
 						value={value}
 						onChangeText={onChange}
 						{...props}

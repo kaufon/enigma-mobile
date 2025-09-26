@@ -7,7 +7,7 @@ import type { IconName } from "@/src/ui/widgets/global/components/icon/types";
 type Props = {
 	label: string;
 	iconName: IconName;
-	count: number;
+	count?: number;
 	href: Href;
 };
 

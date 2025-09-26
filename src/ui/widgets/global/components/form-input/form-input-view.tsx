@@ -11,16 +11,16 @@ type Props = {
 	value: string;
 	onChangeText: (text: string) => void;
 	placeholder?: string;
+	isReadOnly?: boolean;
 };
 
 export const FormInputView = ({ label, ...props }: Props) => {
 	return (
-		// Usamos uma View simples como container principal
 		<View className="my-2">
-			{/* O Input agora serve como container para o label e o input real */}
 			<Input
 				variant="outline"
 				className="h-16 border border-neutral-500/20 bg-background-500 pt-5 px-4"
+        isReadOnly={props.isReadOnly ?? false}
 			>
 				<Text className="text-neutral-500 absolute top-2 left-4 text-xs">
 					{label}

@@ -2,6 +2,7 @@ import { ApiClient } from "@/src/api/axios/clients/axios-client";
 import { AuthService } from "@/src/api/services";
 import { CredentialsService } from "@/src/api/services/credential-service";
 import { FoldersService } from "@/src/api/services/folder-service";
+import { UserService } from "@/src/api/services/user-service";
 import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 import { useEffect, useMemo } from "react";
 
@@ -24,6 +25,7 @@ export function useRest() {
 			authService: AuthService(restClient),
 			foldersService: FoldersService(restClient),
 			credentialService: CredentialsService(restClient),
+			userService: UserService(restClient),
 		};
 	}, []);
 

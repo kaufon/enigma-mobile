@@ -4,6 +4,7 @@ import { useSecureStore } from "@/src/ui/widgets/global/hooks";
 import { useEffect, useState } from "react";
 import { restClient as apiClient } from "@/src/hooks/use-rest";
 import { useToast } from "@/src/hooks/use-toast";
+import { navigate } from "expo-router/build/global-state/routing";
 
 type AuthState = {
 	accessToken: string | null;
@@ -82,6 +83,7 @@ export function useAuthContextProvider() {
 			authenticated: false,
 			isLoading: false,
 		});
+		navigate("/auth/sign-in");
 	};
 	return {
 		...authState,

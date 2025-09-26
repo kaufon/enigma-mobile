@@ -1,23 +1,5 @@
-import { Text, View } from "@/src/ui/widgets/global/components/Themed";
-import { StyleSheet } from "react-native";
+import { ConfigurationScreen } from "@/src/ui/widgets/configuration/screens/configuration";
 
-export default function PasswordGeneratorScreen() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Configuracao</Text>
-      {/* Aqui você colocará os componentes do seu gerador */}
-    </View>
-  );
+export default function Configuration() {
+	return ConfigurationScreen;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-});

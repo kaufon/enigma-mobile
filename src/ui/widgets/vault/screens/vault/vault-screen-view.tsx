@@ -32,7 +32,7 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 								</View>
 							</Menu.Trigger>
 							<Menu.Content>
-								<Menu.Item onPress={signOut} iconName="profile" color="danger">
+								<Menu.Item onPress={signOut} iconName="lock" color="danger">
 									Bloquear
 								</Menu.Item>
 							</Menu.Content>
