@@ -23,31 +23,29 @@ export const CredentialListItemView = ({
 	return (
 		<Pressable
 			onPress={onPress}
-			className="bg-surface-500 rounded-lg m-1 flex-row items-center"
+			className="bg-surface-500/70 rounded-lg m-1 flex-row items-center"
 		>
 			<View className="flex-row items-center space-x-4 py-3 flex-1">
 				<View className="p-3 rounded-full ml-2">
-					<Icon name="globe" size={24} />
+					<Icon name="globe" size={24} color="primary" />
 				</View>
 				<View className="flex-1">
 					<Text className="font-bold text-accent-500 text-base">
 						{credential.title}
 					</Text>
-					<Text className="text-neutral-500 text-sm">
-						{credential.username}
-					</Text>
+					<Text className="text-accent-500 text-sm">{credential.username}</Text>
 				</View>
 			</View>
 
 			<View className="flex-row items-center p-2">
 				{showEdit && (
 					<Pressable onPress={onEdit} className="p-2">
-						<Icon name="pen" size={20} />
+						<Icon name="pen" size={20} color="accent" />
 					</Pressable>
 				)}
 				{showDelete && (
 					<Pressable onPress={onDelete} className="p-2">
-						<Icon name="trash" size={20} />
+						<Icon name="trash" size={20} color="danger" />
 					</Pressable>
 				)}
 			</View>

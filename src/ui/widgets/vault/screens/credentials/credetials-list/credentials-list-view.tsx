@@ -38,7 +38,7 @@ export const CredentialsListView = ({
 	}
 
 	return (
-		<View className="flex-1">
+		<View className="flex-1 bg-background-500">
 			<FlatList
 				data={credentials}
 				keyExtractor={(item) => item.id as string}

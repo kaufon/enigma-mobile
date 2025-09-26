@@ -8,7 +8,7 @@ type Props = {
 
 export const SignInScreenView = ({ onSignIn }: Props) => {
   return (
-    <ScreenContainer>
+    <ScreenContainer> 
       <Box className='flex flex-row items-center justify-center gap-3'>
       </Box>
       <Box className='mt-12'>

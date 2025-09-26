@@ -1,10 +1,12 @@
 import { ActivityIndicator, ScrollView, View } from "react-native";
 import { Stack } from "expo-router";
-import { FloatingActionButton } from "@/src/ui/widgets/global/components/floating-button";
 import { VaultSectionHeader } from "@/src/ui/widgets/vault/components/vault-section-header";
 import { VaultListItem } from "@/src/ui/widgets/vault/screens/vault/vault-list-item";
 import type { FolderDto } from "@/src/core/dtos/folder";
 import { VaultFabMenu } from "@/src/ui/widgets/vault/components/vault-fab-menu";
+import { Menu } from "@/src/ui/widgets/global/components/menu/menu-view";
+import { Icon } from "@/src/ui/widgets/global/components/icon";
+import { useAuthContextProvider } from "@/src/ui/widgets/auth/contexts/auth-context/use-auth-context-provider";
 
 type Props = {
 	folders: FolderDto[];
@@ -15,10 +17,29 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
 	}
+	const { signOut } = useAuthContextProvider();
 
 	return (
 		<View className="flex-1 bg-background-500">
-			<Stack.Screen options={{ title: "Meu Cofre" }} />
+			<Stack.Screen
+				options={{
+					title: "Meu Cofre",
+					headerRight: () => (
+						<Menu>
+							<Menu.Trigger>
+								<View className="pr-4">
+									<Icon name="three-dots-vertical" size={22} color="accent" />
+								</View>
+							</Menu.Trigger>
+							<Menu.Content>
+								<Menu.Item onPress={signOut} iconName="profile" color="danger">
+									Bloquear
+								</Menu.Item>
+							</Menu.Content>
+						</Menu>
+					),
+				}}
+			/>
 
 			<ScrollView>
 				<VaultSectionHeader title="Tipos" count={2} />

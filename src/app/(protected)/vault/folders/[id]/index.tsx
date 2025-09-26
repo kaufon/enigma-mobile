@@ -1,5 +1,5 @@
 import { Text } from "@/src/ui/widgets/global/components/Themed";
-import { FolderDetails } from "@/src/ui/widgets/vault/screens/folders/folder-details/folder-details";
+import { FolderDetails } from "@/src/ui/widgets/vault/screens/folders/folder-details/";
 import { useLocalSearchParams } from "expo-router";
 
 export default function FolderDetailsScreen() {

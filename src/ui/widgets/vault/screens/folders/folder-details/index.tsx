@@ -2,7 +2,9 @@ import { Pressable } from "@/src/ui/gluestack/pressable";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import { View } from "@/src/ui/widgets/global/components/Themed";
 import { CredentialsListView } from "@/src/ui/widgets/vault/screens/credentials/credetials-list/credentials-list-view";
-import { useFolderDetailsViewModel } from "@/src/ui/widgets/vault/screens/folders/folder-details/folder-details/use-folder-details";
+import { useFolderDetailsViewModel } from "@/src/ui/widgets/vault/screens/folders/folder-details/use-folder-details";
+import { View as ReactNativeView } from "react-native";
+import { Link } from "expo-router";
 import { Stack } from "expo-router";
 import { useCallback } from "react";
 
@@ -25,9 +27,16 @@ export const FolderDetails = ({ id }: Props) => {
 				options={{
 					title: folder?.name || "Detalhes da pasta",
 					headerRight: () => (
-						<Pressable onPress={handleDeleteFolder} className="p-2">
-							<Icon name="trash" size={22} color="danger" />
-						</Pressable>
+						<ReactNativeView className="flex-row items-center space-x-2 pr-2">
+							<Link href={`/vault/folders/${id}/edit`} asChild>
+								<Pressable className="p-2">
+									<Icon name="pen" size={22} color="accent" />
+								</Pressable>
+							</Link>
+							<Pressable onPress={handleDeleteFolder} className="p-2">
+								<Icon name="trash" size={22} color="danger" />
+							</Pressable>
+						</ReactNativeView>
 					),
 				}}
 			/>

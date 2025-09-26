@@ -39,6 +39,11 @@ import {
 	X,
 	Folder,
 	Pen,
+	EllipsisVerticalIcon,
+	Lock,
+	UnlockIcon,
+	Circle,
+	CircleCheck,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -83,4 +88,9 @@ export const ICONS: Record<IconName, LucideIcon> = {
 	x: X,
 	folder: Folder,
 	pen: Pen,
+	"three-dots-vertical": EllipsisVerticalIcon,
+	lock: Lock,
+	unlock: UnlockIcon,
+	circle: Circle,
+	"circle-check": CircleCheck,
 };

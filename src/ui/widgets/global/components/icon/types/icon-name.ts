@@ -37,4 +37,9 @@ export type IconName =
 	| "service"
 	| "x"
 	| "folder"
-  | "pen"
+	| "pen"
+	| "three-dots-vertical"
+	| "lock"
+	| "unlock"
+	| "circle"
+	| "circle-check";

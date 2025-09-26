@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRest } from "@/src/hooks";
-import { router } from "expo-router";
+import { router, useFocusEffect } from "expo-router";
 import type { FolderDto } from "@/src/core/dtos/folder";
 import type { CredentialDto } from "@/src/core/dtos/credentials";
 import { Alert } from "react-native";
@@ -13,33 +13,36 @@ export const useFolderDetailsViewModel = (folderId: string) => {
 	const [isLoading, setLoading] = useState(true);
 	const { foldersService } = useRest();
 
-	useEffect(() => {
-		// A função de busca de dados agora vive inteiramente dentro do useEffect
-		const fetchFolderDetails = async () => {
-			setLoading(true);
-			try {
-				const response = await foldersService.getById(folderId);
+	const loadData = useCallback(async () => {
+		if (!folder) setLoading(true);
 
-				if (response.isSuccess && response.body) {
-					const fetchedFolder = response.body;
-					setFolder(fetchedFolder);
+		try {
+			const response = await foldersService.getById(folderId);
 
-					if (fetchedFolder.credentials) {
-						const credentialsForList: CredentialDto[] =
-							fetchedFolder.credentials.map((c) => ({
-								...c,
-								username: "",
-							}));
-						setCredentials(credentialsForList);
-					}
+			if (response.isSuccess && response.body) {
+				const fetchedFolder = response.body;
+				setFolder(fetchedFolder);
+
+				if (fetchedFolder.credentials) {
+					const credentialsForList: CredentialDto[] =
+						fetchedFolder.credentials.map((c) => ({
+							...c,
+							username: "",
+						}));
+					setCredentials(credentialsForList);
 				}
-			} finally {
-				setLoading(false);
 			}
-		};
+		} finally {
+			setLoading(false);
+		}
+	}, [folderId, foldersService, folder]);
 
-		fetchFolderDetails();
-	}, [folderId, foldersService]); // A lista de dependências agora é direta
+	// 2. Substitua o useEffect por useFocusEffect
+	useFocusEffect(
+		useCallback(() => {
+			loadData();
+		}, [loadData]),
+	);
 
 	const handleSelectCredential = (credentialId: string) => {
 		router.push(`/vault/credentials/${credentialId}`);
