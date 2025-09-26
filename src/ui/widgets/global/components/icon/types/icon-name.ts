@@ -42,4 +42,6 @@ export type IconName =
 	| "lock"
 	| "unlock"
 	| "circle"
-	| "circle-check";
+	| "circle-check"
+  | "minus"
+

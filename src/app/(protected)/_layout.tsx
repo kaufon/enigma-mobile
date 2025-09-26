@@ -38,7 +38,7 @@ export default function TabLayout() {
 					}}
 				/>
 				<Tabs.Screen
-					name="password-generator"
+					name="generator"
 					options={{
 						title: "Gerador",
 						tabBarIcon: ({ focused }) => (

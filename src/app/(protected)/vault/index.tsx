@@ -1,5 +1,5 @@
 import { VaultScreen } from "@/src/ui/widgets/vault/screens/vault";
 
-export default function PasswordGeneratorScreen() {
+export default function Vault() {
 	return <VaultScreen />;
 }

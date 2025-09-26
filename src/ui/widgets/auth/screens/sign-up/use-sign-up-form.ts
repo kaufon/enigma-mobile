@@ -49,7 +49,9 @@ export const useSignUpForm = () => {
 	}, [password]);
 	const handleFormSubmit = async (data: SignUpSchema) => {
 		try {
+      console.log(data)
 			const response = await authService.signUp(data.email, data.password);
+      console.log(response)
 			if (response.isSuccess) {
 				show("Conta criada com sucesso! Por favor, faça o login.", "success");
 				router.push("/auth/sign-in");
@@ -57,6 +59,7 @@ export const useSignUpForm = () => {
 				show(response.errorMessage || "Falha ao criar a conta.", "error");
 			}
 		} catch (error) {
+      console.log(error)
 			show("Ocorreu um erro inesperado.", "error");
 		}
 	};

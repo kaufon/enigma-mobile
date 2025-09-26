@@ -17,7 +17,11 @@ export const AuthService = (apiClient: IApiClient): IAuthService => {
 			return response;
 		},
 		async signUp(email: string, password: string): Promise<ApiResponse<void>> {
-			throw new Error("Function not implemented.");
+			const response = await apiClient.post<void>("/auth/sign-up", {
+				email,
+				password,
+			});
+			return response;
 		},
 		async signOut(): Promise<void> {
 			throw new Error("Function not implemented.");

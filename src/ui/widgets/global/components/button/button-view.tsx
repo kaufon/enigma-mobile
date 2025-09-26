@@ -7,14 +7,15 @@ import {
 	ButtonSpinner,
 	ButtonText,
 } from "../../../../gluestack/button";
-import { COLORS } from "@/src/constants"; 
-import { mergeClassNames } from "@/src/ui/widgets/global/utils"; 
+import { COLORS } from "@/src/constants";
+import { mergeClassNames } from "@/src/ui/widgets/global/utils";
 
 type Props = {
 	isLoading?: boolean;
 	isDisabled?: boolean;
 	className?: string;
 	onPress: () => void;
+	hasFlex?: boolean;
 };
 
 export const ButtonView = ({
@@ -23,9 +24,10 @@ export const ButtonView = ({
 	isDisabled = false,
 	className,
 	onPress,
+	hasFlex = true,
 }: PropsWithChildren<Props>) => {
 	return (
-		<ButtonGroup className="flex-1">
+		<ButtonGroup className={hasFlex ? 'flex-1' : ""}>
 			<Button
 				isDisabled={isDisabled}
 				onPress={onPress}
