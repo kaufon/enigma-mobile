@@ -38,22 +38,22 @@ export const CategorySelect = ({ control, name, label, folders }: Props) => {
 						<Text className="text-accent-500 text-lg">
 							{selectedFolderName}
 						</Text>
-						<Icon name="arrow-down" size={16} />{" "}
+						<Icon name="arrow-down" size={16} />
 					</View>
 				</Pressable>
 			</View>
 
 			<Sheet isOpen={isSheetOpen} onClose={() => setSheetOpen(false)}>
-				<Box className="border border-t border-primary-500 rounded-lg rounded-t-2xl max-h-96 w-full mt-20">
+				<Box className="rounded-full max-h-96 w-full mt-20">
 					<ActionsheetItem
 						onPress={() => {
 							field.onChange(undefined);
 							setSheetOpen(false);
 						}}
-						className="bg-surface-500 flex-row items-center p-4 border-b border-primary-500/20"
+						className="bg-surface-500 flex-row items-center rounded-t p-4 border-b border-primary-500/70"
 					>
 						<Box className="flex-row items-center space-x-4 gap-4">
-							<Icon name="note" size={20} />
+							<Icon name="folder" size={20} />
 							<ActionsheetItemText className="text-accent-500">
 								Nenhuma pasta
 							</ActionsheetItemText>

@@ -1,58 +1,34 @@
-import { useCallback } from "react";
-import {
-	Toast,
-	ToastDescription,
-	ToastTitle,
-	useToast as useToastGluestack,
-} from "../ui/gluestack/toast";
+// src/hooks/use-toast.ts
 
-type ToastType = "success" | "error" | "warning";
+import { useCallback } from "react";
+import Toast from "react-native-toast-message";
+
+type ToastType = "success" | "error" | "warning" | "info";
 
 const TITLES = {
-	success: {
-		title: "Sucesso",
-		textColor: "text-primary",
-	},
-	error: {
-		title: "Erro",
-		textColor: "text-danger",
-	},
-	warning: {
-		title: "Aviso",
-		textColor: "text-warning",
-	},
+	success: "Sucesso",
+	error: "Erro",
+	warning: "Aviso",
+	info: "Informação",
 };
 
 export const useToast = () => {
-	const toast = useToastGluestack();
+	const show = useCallback((description: string, type: ToastType = "error") => {
+		const visibilityTime = 3000; // Define o tempo em milissegundos
 
-	const show = useCallback(
-		(description: string, type: ToastType = "error") => {
-			const newId = Math.random();
-			toast.show({
-				id: newId.toString(),
-				placement: "top",
-				duration: 3000,
-				render: ({ id }) => {
-					const uniqueToastId = `toast-${id}`;
-					const title = TITLES[type].title;
-					const textColor = TITLES[type].textColor;
-					return (
-							<Toast
-								nativeID={uniqueToastId}
-								action={type}
-								variant="outline"
-								className="bg-background translate-y-12"
-							>
-								<ToastTitle className={textColor}>{title}</ToastTitle>
-								<ToastDescription>{description}</ToastDescription>
-							</Toast>
-					);
-				},
-			});
-		},
-		[toast],
-	);
+		Toast.show({
+			type: type,
+			text1: TITLES[type],
+			text2: description,
+			position: "top",
+			visibilityTime: visibilityTime,
+			autoHide: true,
+		});
+
+		setTimeout(() => {
+			Toast.hide();
+		}, visibilityTime);
+	}, []);
 
 	return {
 		show,

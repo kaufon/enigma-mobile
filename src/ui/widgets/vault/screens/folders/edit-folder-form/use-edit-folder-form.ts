@@ -13,7 +13,7 @@ export const createFolderSchema = z.object({
 export type CreateFolderSchema = z.infer<typeof createFolderSchema>;
 export const useEditFolderForm = (folderId: string) => {
 	const { show } = useToast();
-	const { foldersService } = useRest();
+	const { folderService: foldersService } = useRest();
 	const router = useRouter();
 	const [isLoadingData, setLoadingData] = useState(true);
 

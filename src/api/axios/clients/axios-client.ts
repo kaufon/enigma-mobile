@@ -5,9 +5,11 @@ import axios, { AxiosError, type AxiosInstance } from "axios";
 
 export class ApiClient implements IApiClient {
 	private readonly axiosInstance: AxiosInstance;
-	private onSignOut: () => void; // Armazena a função de signOut
+	private onSignOut: () => void; 
+
 	constructor(baseURL: string) {
 		this.onSignOut = () => console.error("onSignOut não foi configurado!");
+
 		this.axiosInstance = axios.create({
 			baseURL,
 			timeout: 15000,
@@ -19,28 +21,31 @@ export class ApiClient implements IApiClient {
 			);
 			return config;
 		});
+
 		this.axiosInstance.interceptors.response.use(
 			(response) => response,
 			async (error: AxiosError) => {
 				const { config, response } = error;
 				if (response?.status === 401 && config?.headers?.Authorization) {
-					console.log("Erro 401, chamando onSignOut...");
-					this.onSignOut();
+					console.log("Erro 401 - Token inválido ou expirado. Deslogando...");
+					this.onSignOut(); 
 				}
 				return Promise.reject(error);
 			},
 		);
 	}
-	public setHeader(key: string, value: string): void {
-		this.axiosInstance.defaults.headers.common[key] = value;
-	}
+
 	public setSignOutCallback(callback: () => void) {
 		this.onSignOut = callback;
 	}
 
+	public setHeader(key: string, value: string): void {
+		this.axiosInstance.defaults.headers.common[key] = value;
+	}
+
+
 	public async get<T>(url: string, params?: object): Promise<ApiResponse<T>> {
 		try {
-			console.log(this.axiosInstance.defaults.headers);
 			const response = await this.axiosInstance.get<T>(url, { params });
 			return new ApiResponse({
 				body: response.data,

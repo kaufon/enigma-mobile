@@ -18,7 +18,7 @@ export const SheetView = ({ isOpen, onClose, children }: Props) => {
 	return (
 		<Actionsheet isOpen={isOpen} onClose={onClose} snapPoints={[99]}>
 			<ActionsheetBackdrop />
-			<ActionsheetContent className="bg-surface-500">
+			<ActionsheetContent className="bg-background-500">
 				<ActionsheetDragIndicatorWrapper>
 					<ActionsheetDragIndicator />
 				</ActionsheetDragIndicatorWrapper>

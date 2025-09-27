@@ -1,12 +1,11 @@
 import { View, ScrollView } from "react-native";
-import { Text } from "@/src/ui/widgets/global/components/Themed";
-import { Sheet } from "@/src/ui/widgets/global/components/action-sheet";
-import { Button, ButtonText, ButtonSpinner } from "@/src/ui/gluestack/button";
+import {  ButtonText, ButtonSpinner } from "@/src/ui/gluestack/button";
 import { ControlledInput } from "@/src/ui/widgets/global/components/controlled-input/controlled-input-view";
 import { FormSection } from "@/src/ui/widgets/global/components/format-section";
 import { ControlledPasswordInput } from "@/src/ui/widgets/global/components/controlled-password-input/controlled-password-input-view";
 import type { FolderDto } from "@/src/core/dtos/folder";
 import { CategorySelect } from "@/src/ui/widgets/global/components/category-select/category-select-view";
+import { Button } from "@/src/ui/widgets/global/components/button";
 
 type Props = {
 	handleSubmit: () => void;
@@ -59,11 +58,12 @@ export const RegisterCredentialFormView = ({
 
 			<Button
 				onPress={handleSubmit}
-				disabled={!isValid || isSubmitting}
+				isDisabled={!isValid || isSubmitting}
+        hasFlex={false}
 				className="mt-6 bg-primary-500"
 			>
 				{isSubmitting && <ButtonSpinner mr="$2" />}
-				<ButtonText>Salvar</ButtonText>
+				<ButtonText className="text-accent-500">Salvar</ButtonText>
 			</Button>
 		</View>
 	);

@@ -43,11 +43,11 @@ export const SignInFormView = ({ onSignIn }: Props) => {
 				</Box>
 			</Box>
 			<Box className="flex flex-row items-center justify-between mt-6">
-				<Link href="/auth/sign-up" asChild>
-					<Text className="text-bold">Esqueceu sua senha?</Text>
+				<Link href="/auth/forgot-password" asChild>
+					<Text className="text-bold underline">Esqueceu sua senha?</Text>
 				</Link>
 				<Link href="/auth/sign-up" asChild>
-					<Text>Criar conta</Text>
+					<Text className="text-bold underline">Criar conta</Text>
 				</Link>
 			</Box>
 

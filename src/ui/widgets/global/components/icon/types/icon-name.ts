@@ -44,4 +44,4 @@ export type IconName =
 	| "circle"
 	| "circle-check"
   | "minus"
-
+  | "clock"

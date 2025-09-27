@@ -63,12 +63,12 @@ export default function SignUpScreenView({
 							className="mt-6 bg-primary-500"
 						>
 							{isSubmitting && <ButtonSpinner mr="$2" />}
-							<ButtonText>Criar Conta</ButtonText>
+							<ButtonText className="text-accent-500">Criar Conta</ButtonText>
 						</Button>
 
 						<Link href="/auth/sign-in" asChild>
 							<Pressable className="mt-4">
-								<Text className="text-center text-bold text-primary-500">
+								<Text className="text-center text-bold underline text-primary-500">
 									Já tem uma conta? Faça login
 								</Text>
 							</Pressable>

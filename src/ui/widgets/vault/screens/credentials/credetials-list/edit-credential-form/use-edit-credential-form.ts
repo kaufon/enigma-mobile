@@ -23,7 +23,7 @@ export const useEditCredentialForm = (id: string) => {
 	const { show } = useToast();
 	const [isLoadingData, setLoadingData] = useState(true); // Estado para o carregamento inicial
 	const [folders, setFolders] = useState<FolderDto[]>([]); // 👈 Estado para as pastas
-	const { credentialService, foldersService } = useRest();
+	const { credentialService, folderService: foldersService } = useRest();
 
 	const {
 		control,

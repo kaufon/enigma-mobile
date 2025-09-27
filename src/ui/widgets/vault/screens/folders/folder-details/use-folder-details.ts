@@ -11,7 +11,7 @@ export const useFolderDetailsViewModel = (folderId: string) => {
 	const [credentials, setCredentials] = useState<CredentialDto[]>([]);
 	const { show } = useToast();
 	const [isLoading, setLoading] = useState(true);
-	const { foldersService } = useRest();
+	const { folderService: foldersService } = useRest();
 
 	const loadData = useCallback(async () => {
 		if (!folder) setLoading(true);

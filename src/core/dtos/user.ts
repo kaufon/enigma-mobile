@@ -3,4 +3,5 @@ export type UserDto = {
 	email: string;
 	danger: true;
 	dangerReason?: string;
+	autoLockTimeout?: number;
 };

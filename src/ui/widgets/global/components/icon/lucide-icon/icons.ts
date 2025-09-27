@@ -46,6 +46,7 @@ import {
 	CircleCheck,
     Minus,
     Plus,
+    Clock,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -96,4 +97,5 @@ export const ICONS: Record<IconName, LucideIcon> = {
 	circle: Circle,
 	"circle-check": CircleCheck,
   minus: Minus,
+  clock: Clock
 };

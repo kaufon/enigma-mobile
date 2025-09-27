@@ -6,7 +6,7 @@ import { useEffect, useState, useCallback } from "react";
 export const useVaultScreenViewModel = () => {
 	const [folders, setFolders] = useState<FolderDto[]>([]);
 	const [isLoading, setIsLoading] = useState(true);
-	const { foldersService } = useRest();
+	const { folderService: foldersService } = useRest();
 
 	const loadFolders = useCallback(async () => {
 		setIsLoading(true);

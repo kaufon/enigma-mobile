@@ -20,7 +20,7 @@ type RegisterCredentialFormSchema = z.infer<
 >;
 export const useRegisterCredentialForm = (onSuccess: () => void) => {
 	const { show } = useToast();
-	const { credentialService, foldersService } = useRest();
+	const { credentialService, folderService: foldersService } = useRest();
 	const [folders, setFolders] = useState<FolderDto[]>([]);
 	const [isLoadingFolders, setIsLoadingFolders] = useState(true);
 	const {

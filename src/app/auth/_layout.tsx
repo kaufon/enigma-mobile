@@ -1,11 +1,18 @@
-import { Stack } from 'expo-router'
+import { COLORS } from "@/src/constants";
+import { Stack } from "expo-router";
+import { useColorScheme } from "nativewind";
 
 const Layout = () => {
-  return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name='sign-in' />
-    </Stack>
-  )
-}
+	const { colorScheme } = useColorScheme();
+	const theme = COLORS[colorScheme || "light"];
+	return (
+		<Stack
+			screenOptions={{
+				headerShown: false,
+				headerStyle: { backgroundColor: theme.surface },
+			}}
+		/>
+	);
+};
 
-export default Layout
+export default Layout;

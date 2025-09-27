@@ -16,6 +16,7 @@ type Props = {
 	className?: string;
 	onPress: () => void;
 	hasFlex?: boolean;
+	variant?: "solid" | "outline" | "link";
 };
 
 export const ButtonView = ({
@@ -24,13 +25,15 @@ export const ButtonView = ({
 	isDisabled = false,
 	className,
 	onPress,
+	variant: variat = "solid",
 	hasFlex = true,
 }: PropsWithChildren<Props>) => {
 	return (
-		<ButtonGroup className={hasFlex ? 'flex-1' : ""}>
+		<ButtonGroup className={hasFlex ? "flex-1" : ""}>
 			<Button
 				isDisabled={isDisabled}
 				onPress={onPress}
+				variant={variat}
 				className={mergeClassNames(
 					"bg-primary h-16 px-0 items-center justify-center",
 					className,

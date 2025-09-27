@@ -7,7 +7,7 @@ export const useCredentialDetailsViewModel = (id: string) => {
 	const [credential, setCredential] = useState<CredentialDto | null>(null);
 	const [folder, setFolder] = useState<FolderDto | null>(null); 
 	const [isLoading, setLoading] = useState(true);
-	const { credentialService, foldersService } = useRest(); 
+	const { credentialService, folderService: foldersService } = useRest(); 
 
 	useEffect(() => {
 		const fetchDetails = async () => {

@@ -1,5 +1,5 @@
-import { ConfigurationScreen } from "@/src/ui/widgets/configuration/screens/configuration";
+import { ConfigurationScreen } from "@/src/ui/widgets/configuration/screens/security/configuration";
 
-export default function Configuration() {
+export default function Screen() {
 	return ConfigurationScreen;
 }

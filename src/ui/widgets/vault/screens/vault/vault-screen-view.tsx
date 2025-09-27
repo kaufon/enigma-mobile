@@ -6,7 +6,7 @@ import type { FolderDto } from "@/src/core/dtos/folder";
 import { VaultFabMenu } from "@/src/ui/widgets/vault/components/vault-fab-menu";
 import { Menu } from "@/src/ui/widgets/global/components/menu/menu-view";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
-import { useAuthContextProvider } from "@/src/ui/widgets/auth/contexts/auth-context/use-auth-context-provider";
+import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 
 type Props = {
 	folders: FolderDto[];
@@ -17,7 +17,7 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
 	}
-	const { signOut } = useAuthContextProvider();
+	const { signOut } = useAuthContext();
 
 	return (
 		<View className="flex-1 bg-background-500">
@@ -49,6 +49,7 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 						iconName="globe"
 						count={5}
 						href="/vault/credentials"
+            hasBottomBorder={false}
 					/>
 				</View>
 
