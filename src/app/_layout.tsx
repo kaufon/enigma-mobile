@@ -47,7 +47,6 @@ function RootLayoutNav() {
 					</AuthContextProvider>
 				</ThemeProvider>
 			</UiProvider>
-			{/*<Toast config={toastConfig} />*/}
 		</GestureHandlerRootView>
 	);
 }

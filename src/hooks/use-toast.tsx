@@ -1,5 +1,3 @@
-// src/hooks/use-toast.ts
-
 import { useCallback } from "react";
 import Toast from "react-native-toast-message";
 
@@ -14,7 +12,7 @@ const TITLES = {
 
 export const useToast = () => {
 	const show = useCallback((description: string, type: ToastType = "error") => {
-		const visibilityTime = 3000; // Define o tempo em milissegundos
+		const visibilityTime = 3000; 
 
 		Toast.show({
 			type: type,
