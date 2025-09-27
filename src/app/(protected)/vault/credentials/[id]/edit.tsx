@@ -7,6 +7,7 @@ import { SelectInput } from "@/src/ui/widgets/global/components/select-input";
 import { Button } from "@/src/ui/widgets/global/components/button";
 import { useEditCredentialForm } from "@/src/ui/widgets/vault/screens/credentials/credetials-list/edit-credential-form/use-edit-credential-form";
 import { CategorySelect } from "@/src/ui/widgets/global/components/category-select/category-select-view";
+import { ButtonText } from "@/src/ui/gluestack/button";
 
 export default function EditCredentialScreen() {
 	const { id } = useLocalSearchParams<{ id: string }>();
@@ -67,7 +68,7 @@ export default function EditCredentialScreen() {
 				isDisabled={!isValid || isSubmitting}
 				className="mt-4 bg-primary-500"
 			>
-				Salvar Alterações
+				<ButtonText className="text-accent-500">Salvar Alterações</ButtonText>
 			</Button>
 		</View>
 	);

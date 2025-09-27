@@ -2,9 +2,7 @@ import { ActivityIndicator, FlatList, View } from "react-native";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { CredentialListItem } from "./credential-list-item";
 import type { CredentialDto } from "@/src/core/dtos/credentials";
-import { useState } from "react"; // Use o hook de estado do React
 import { FloatingActionButton } from "@/src/ui/widgets/global/components/floating-button";
-import { RegisterCredentialForm } from "@/src/ui/widgets/vault/screens/credentials/credetials-list/register-credential-form";
 import { useNavigation } from "@/src/ui/widgets/global/hooks";
 
 type Props = {

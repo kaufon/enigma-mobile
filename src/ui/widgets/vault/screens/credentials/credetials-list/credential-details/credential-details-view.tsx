@@ -79,8 +79,8 @@ export const CredentialDetailsView = ({
 			<DetailField label="Pasta" value={folderName} />
 
 			<Link href={`/vault/credentials/${id}/edit`} asChild>
-				<Pressable className="mt-6 bg-primary-500 p-3 rounded-md flex-row items-center justify-center">
-					<Icon name="note" size={16} color="accent" />
+				<Pressable className="mt-6 bg-primary-500 p-3 rounded-md gap-2 flex-row items-center justify-center">
+					<Icon name="pen" size={16} color="accent" />
 					<Text className="text-white font-bold">Editar</Text>
 				</Pressable>
 			</Link>
