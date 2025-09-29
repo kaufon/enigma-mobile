@@ -4,31 +4,25 @@ import Toast from "react-native-toast-message";
 type ToastType = "success" | "error" | "warning" | "info";
 
 const TITLES = {
-	success: "Sucesso",
-	error: "Erro",
-	warning: "Aviso",
-	info: "Informação",
+  success: "Sucesso",
+  error: "Erro",
+  warning: "Aviso",
+  info: "Informação",
 };
 
 export const useToast = () => {
-	const show = useCallback((description: string, type: ToastType = "error") => {
-		const visibilityTime = 3000; 
+  const show = useCallback((description: string, type: ToastType = "error") => {
+    Toast.show({
+      type: type,
+      text1: TITLES[type],
+      text2: description,
+      position: "top",
+      visibilityTime: 4000, 
+      autoHide: true,
+    });
+  }, []);
 
-		Toast.show({
-			type: type,
-			text1: TITLES[type],
-			text2: description,
-			position: "top",
-			visibilityTime: visibilityTime,
-			autoHide: true,
-		});
-
-		setTimeout(() => {
-			Toast.hide();
-		}, visibilityTime);
-	}, []);
-
-	return {
-		show,
-	};
+  return {
+    show,
+  };
 };

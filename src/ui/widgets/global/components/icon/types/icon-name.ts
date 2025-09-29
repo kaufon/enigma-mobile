@@ -43,5 +43,6 @@ export type IconName =
 	| "unlock"
 	| "circle"
 	| "circle-check"
-  | "minus"
-  | "clock"
+	| "minus"
+	| "clock"
+	| "tag";

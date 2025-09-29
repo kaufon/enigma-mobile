@@ -36,7 +36,6 @@ export default function RootLayout() {
 	return <RootLayoutNav />;
 }
 
-//@TODO: antes de buildar, configurar o toast
 function RootLayoutNav() {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>

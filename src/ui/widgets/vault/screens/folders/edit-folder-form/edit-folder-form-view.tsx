@@ -1,8 +1,8 @@
 import { ActivityIndicator, View } from "react-native";
 import { Stack, useLocalSearchParams } from "expo-router";
-import { Button, ButtonSpinner, ButtonText } from "@/src/ui/gluestack/button";
-import { Text } from "@/src/ui/widgets/global/components/Themed";
+import { ButtonSpinner, ButtonText } from "@/src/ui/gluestack/button";
 import { ControlledInput } from "@/src/ui/widgets/global/components/controlled-input/controlled-input-view";
+import { Button } from "@/src/ui/widgets/global/components/button";
 
 type Props = {
 	control: any;
@@ -36,11 +36,12 @@ export default function EditFolderScreenView({
 
 			<Button
 				onPress={handleSubmit}
-				disabled={!isValid || isSubmitting}
+				isDisabled={!isValid || isSubmitting}
 				className="mt-6 bg-primary-500"
+				hasFlex={false}
 			>
 				{isSubmitting && <ButtonSpinner mr="$2" />}
-				<ButtonText>Salvar Alterações</ButtonText>
+				<ButtonText className="text-accent-500">Salvar Alterações</ButtonText>
 			</Button>
 		</View>
 	);
