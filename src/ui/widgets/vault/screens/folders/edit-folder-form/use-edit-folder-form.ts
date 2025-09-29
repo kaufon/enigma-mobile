@@ -27,14 +27,13 @@ export const useEditFolderForm = (folderId: string) => {
 		mode: "onChange",
 	});
 
-	// Busca os dados da pasta para popular o formulário
 	useEffect(() => {
 		const loadFolder = async () => {
 			setLoadingData(true);
 			try {
 				const response = await foldersService.getById(folderId);
 				if (response.isSuccess && response.body) {
-					reset({ name: response.body.name }); // Popula o formulário com o nome
+					reset({ name: response.body.name }); 
 				}
 			} finally {
 				setLoadingData(false);

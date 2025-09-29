@@ -3,7 +3,6 @@ import { Stack, useLocalSearchParams } from "expo-router";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { FormSection } from "@/src/ui/widgets/global/components/format-section";
 import { ControlledInput } from "@/src/ui/widgets/global/components/controlled-input/controlled-input-view";
-import { SelectInput } from "@/src/ui/widgets/global/components/select-input";
 import { Button } from "@/src/ui/widgets/global/components/button";
 import { useEditCredentialForm } from "@/src/ui/widgets/vault/screens/credentials/credetials-list/edit-credential-form/use-edit-credential-form";
 import { CategorySelect } from "@/src/ui/widgets/global/components/category-select/category-select-view";
@@ -43,7 +42,7 @@ export default function EditCredentialScreen() {
 					label="Pasta"
 				/>
 
-				<FormSection title="Credenciais" />
+				<FormSection title="Credenciais de acesso" />
 				<ControlledInput
 					name="username"
 					control={control}

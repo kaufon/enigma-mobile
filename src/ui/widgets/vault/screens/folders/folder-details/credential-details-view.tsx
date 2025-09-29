@@ -16,7 +16,7 @@ const DetailField = ({
 
 	const copyToClipboard = async () => {
 		if (!value) return;
-		await Clipboard.setString(value); // Use setStringAsync
+		await Clipboard.setString(value); 
 		show(`${label} copiado!`, "success");
 	};
 

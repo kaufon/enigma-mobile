@@ -3,7 +3,7 @@ import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { ButtonText } from "@/src/ui/gluestack/button";
 import { Pressable } from "@/src/ui/gluestack/pressable";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
-import { FormInputView } from "@/src/ui/widgets/global/components/form-input/form-input-view"; // Reutilizamos o input
+import { FormInputView } from "@/src/ui/widgets/global/components/form-input/form-input-view"; 
 import { Button } from "@/src/ui/widgets/global/components/button";
 
 type Props = {

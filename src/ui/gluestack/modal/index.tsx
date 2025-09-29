@@ -246,7 +246,6 @@ const ModalCloseButton = React.forwardRef<
   );
 });
 
-// Assign display names
 Modal.displayName = 'Modal';
 ModalBackdrop.displayName = 'ModalBackdrop';
 ModalContent.displayName = 'ModalContent';

@@ -1,8 +1,7 @@
-// Crie um novo arquivo: src/ui/widgets/global/components/controlled-input/ControlledPasswordInput.tsx
 
 import { Controller, type Control, type FieldValues, type Path } from 'react-hook-form';
-import { PasswordInput } from '../password-input'; // Seu componente de senha original
-import { Text } from '../Themed'; // Seu componente de texto
+import { PasswordInput } from '../password-input'; 
+import { Text } from '../Themed'; 
 import { View } from 'react-native';
 
 type Props<T extends FieldValues> = {

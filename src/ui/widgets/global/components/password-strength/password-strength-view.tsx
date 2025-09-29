@@ -1,52 +1,47 @@
 import { Text } from "@/src/ui/gluestack/text";
 import { mergeClassNames } from "@/src/ui/widgets/global/utils";
-import { Box } from "@/src/ui/gluestack/box"; // 👈 CORREÇÃO 1: Importe o Box do Gluestack
+import { Box } from "@/src/ui/gluestack/box"; 
 
-// CORREÇÃO 2: Simplifiquei o array de níveis.
-// O índice do array agora corresponde diretamente à pontuação de força.
 const STRENGTH_LEVELS = [
-  { label: "Vazio", color: "bg-neutral-500 border-neutral-500" }, // Nível 0
-  { label: "Muito Fraca", color: "bg-danger-500 border-danger-500" }, // Nível 1
-  { label: "Fraca", color: "bg-danger-500 border-danger-500" }, // Nível 2
-  { label: "Boa", color: "bg-warning-500 border-warning-500" }, // Nível 3
-  { label: "Forte", color: "bg-primary-500 border-primary-500" }, // Nível 4
-  { label: "Muito Forte", color: "bg-primary-500 border-primary-500" },// Nível 5
+  { label: "Vazio", color: "bg-neutral-500 border-neutral-500" }, 
+  { label: "Muito Fraca", color: "bg-danger-500 border-danger-500" }, 
+  { label: "Fraca", color: "bg-danger-500 border-danger-500" }, 
+  { label: "Boa", color: "bg-warning-500 border-warning-500" }, 
+  { label: "Forte", color: "bg-primary-500 border-primary-500" }, 
+  { label: "Muito Forte", color: "bg-primary-500 border-primary-500" }, 
 ];
 
 type Props = {
-  password?: string; // Tornar opcional para o estado inicial
+  password?: string; 
   isLarge?: boolean;
 };
 
 export const PasswordStregthView = ({ password = "", isLarge = false }: Props) => {
   const strength =
-    (password.length > 0 ? 1 : 0) + // Adicionei +1 se não estiver vazio para diferenciar de 0
+    (password.length > 0 ? 1 : 0) + 
     (password.length >= 12 ? 1 : 0) +
     (password.match(/[A-Z]/) ? 1 : 0) +
     (password.match(/[a-z]/) ? 1 : 0) +
     (password.match(/[0-9]/) ? 1 : 0) +
     (password.match(/[^A-Za-z0-9]/) ? 1 : 0);
 
-  // CORREÇÃO 3: Lógica de seleção de nível ajustada
-  // Garante que o índice não ultrapasse o tamanho do array
   const levelIndex = password.length === 0 ? 0 : Math.min(Math.max(strength - 1, 1), 5);
   const currentLevel = STRENGTH_LEVELS[levelIndex];
 
   return (
     <Box
       className={mergeClassNames(
-        "items-start", // Alinhado à esquerda para consistência
+        "items-start", 
         isLarge ? "flex-row gap-4" : "w-24",
       )}
     >
-      {/* Oculta o label se não houver senha digitada */}
       {password.length > 0 && (
         <Box className="mb-1">
           <Text
             className={mergeClassNames(
-              "text-xs", // Tamanho de fonte consistente para o label
+              "text-xs", 
               isLarge && "text-sm",
-              `text-${currentLevel.color.split('-')[1]}-500` // Cor do texto dinâmica
+              `text-${currentLevel.color.split('-')[1]}-500` 
             )}
           >
             {currentLevel.label}
@@ -59,12 +54,11 @@ export const PasswordStregthView = ({ password = "", isLarge = false }: Props) =
           <Box
             key={barIndex}
             className={mergeClassNames(
-              "h-1 rounded-full", // Estilo de barra mais moderno
+              "h-1 rounded-full", 
               isLarge ? "w-8" : "w-4",
-              // CORREÇÃO 4: Lógica de cor simplificada
               password.length > 0 && barIndex <= levelIndex
-                ? currentLevel.color.replace('border-','bg-') // Garante que a barra seja preenchida
-                : "bg-neutral-500/20", // Cor de fundo para barras inativas
+                ? currentLevel.color.replace('border-','bg-') 
+                : "bg-neutral-500/20", 
             )}
           />
         ))}

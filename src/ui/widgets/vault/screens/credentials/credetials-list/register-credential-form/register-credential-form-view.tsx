@@ -1,5 +1,5 @@
 import { View, ScrollView } from "react-native";
-import {  ButtonText, ButtonSpinner } from "@/src/ui/gluestack/button";
+import { ButtonText, ButtonSpinner } from "@/src/ui/gluestack/button";
 import { ControlledInput } from "@/src/ui/widgets/global/components/controlled-input/controlled-input-view";
 import { FormSection } from "@/src/ui/widgets/global/components/format-section";
 import { ControlledPasswordInput } from "@/src/ui/widgets/global/components/controlled-password-input/controlled-password-input-view";
@@ -26,11 +26,16 @@ export const RegisterCredentialFormView = ({
 }: Props) => {
 	return (
 		<View className="w-full px-4 pb-8 flex-1">
-
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<FormSection title="Informações do Item" />
 				<ControlledInput name="title" control={control} label="Nome" />
 
+				<CategorySelect
+					name="categoryId"
+					control={control}
+					label="Pasta da credencial (Opcional)"
+					folders={folders}
+				/>
 				<FormSection title="Credenciais de acesso" />
 				<ControlledInput
 					name="username"
@@ -48,18 +53,12 @@ export const RegisterCredentialFormView = ({
 					control={control}
 					label="URL do site (Opcional)"
 				/>
-				<CategorySelect
-					name="categoryId"
-					control={control}
-					label="Pasta da credencial (Opcional)"
-					folders={folders}
-				/>
 			</ScrollView>
 
 			<Button
 				onPress={handleSubmit}
 				isDisabled={!isValid || isSubmitting}
-        hasFlex={false}
+				hasFlex={false}
 				className="mt-6 bg-primary-500"
 			>
 				{isSubmitting && <ButtonSpinner mr="$2" />}

@@ -45,4 +45,7 @@ export type IconName =
 	| "circle-check"
 	| "minus"
 	| "clock"
-	| "tag";
+	| "tag"
+	| "warning"
+	| "danger"
+	| "info";

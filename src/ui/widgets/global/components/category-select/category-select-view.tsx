@@ -20,7 +20,7 @@ export const CategorySelect = ({ control, name, label, folders }: Props) => {
 		folders.find((f) => f.id === field.value)?.name || "Nenhuma pasta";
 
 	const handleSelect = (folderId: string | undefined) => {
-		field.onChange(folderId);
+		field.onChange(folderId ? folderId : null);
 		setModalVisible(false);
 	};
 
@@ -64,10 +64,7 @@ export const CategorySelect = ({ control, name, label, folders }: Props) => {
 									className="flex-row items-center justify-between p-4 border-b border-neutral-500/10"
 								>
 									<View className="flex-row items-center space-x-3 gap-4">
-										<Icon
-											name={item.id ? "folder" : "tag"}
-											size={20}
-										/>
+										<Icon name={item.id ? "folder" : "tag"} size={20} />
 										<Text className="text-accent-500 text-base">
 											{item.name}
 										</Text>

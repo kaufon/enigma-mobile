@@ -94,7 +94,7 @@ export function useAuthContextProvider() {
 		} catch (error) {
 			await signOut();
 		}
-	}, [userService, signOut]); // As dependências são estáveis
+	}, [userService, signOut]); 
 
 	const signIn = async (email: string, password: string) => {
 		try {

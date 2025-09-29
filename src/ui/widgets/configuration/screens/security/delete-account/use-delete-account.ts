@@ -31,7 +31,7 @@ export const useDeleteAccount = () => {
 	const initiateAccountDeletion = () => {
 		setDeleteDialogOpen(true);
 		setDeleteDisabled(true);
-		deleteForm.reset(); // Limpa o formulário do modal ao abrir
+		deleteForm.reset(); 
 		let timeLeft = 5;
 
 		const timer = setInterval(() => {
@@ -48,7 +48,7 @@ export const useDeleteAccount = () => {
 			const response = await userService.deleteAccount(
 				data.email,
 				data.passwordConfirmation,
-			); // Envia email e senha
+			); 
 			if (response.isSuccess) {
 				show("Conta excluída com sucesso.", "success");
 				signOut();

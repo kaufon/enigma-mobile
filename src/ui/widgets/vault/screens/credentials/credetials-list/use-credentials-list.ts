@@ -16,12 +16,10 @@ export const useCredentialsListViewModel = (categoryId?: string) => {
 			"Confirmar Exclusão",
 			"Você tem certeza que deseja excluir esta credencial? Esta ação não pode ser desfeita.",
 			[
-				// Botão de Cancelar
 				{
 					text: "Cancelar",
 					style: "cancel",
 				},
-				// Botão de Excluir
 				{
 					text: "Excluir",
 					style: "destructive",
@@ -29,7 +27,7 @@ export const useCredentialsListViewModel = (categoryId?: string) => {
 						try {
 							const response = await credentialService.delete(id);
 							if (response.isSuccess) {
-								loadCredentials(); // Atualiza a lista após a exclusão
+								loadCredentials(); 
 							} else {
 							}
 						} catch (error) {

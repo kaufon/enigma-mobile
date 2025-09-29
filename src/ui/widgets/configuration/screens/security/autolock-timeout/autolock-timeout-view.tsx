@@ -1,8 +1,7 @@
 import { View } from "react-native";
 import { Stack } from "expo-router";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
-import { Pressable } from "@/src/ui/widgets/global/components/pressable";
-import { Icon } from "@/src/ui/widgets/global/components/icon";
+import { AutoLockSelect } from "@/src/ui/widgets/configuration/componentes/autolock-select";
 
 const TIMEOUT_OPTIONS = [
 	{ label: "1 Minuto", value: 1 },
@@ -23,36 +22,19 @@ export default function AutoLockScreenView({
 	handleUpdateTime,
 }: Props) {
 	return (
-		<View className="flex-1 bg-background-500 pt-4">
+		<View className="flex-1 bg-background-500 p-4">
 			<Stack.Screen options={{ title: "Auto-Bloqueio" }} />
 
-			<Text className="text-neutral-500 mb-2 px-4">
+			<Text className="text-neutral-500 mb-2">
 				Bloquear o aplicativo automaticamente após um período de inatividade.
 			</Text>
 
-			<View className="bg-surface-500 rounded-lg mx-4 mt-2">
-				{TIMEOUT_OPTIONS.map((option, index) => (
-					<Pressable
-						key={option.label}
-						onPress={() => handleUpdateTime(option.value)}
-						className={`flex-row items-center justify-between p-4 ${
-							index < TIMEOUT_OPTIONS.length - 1
-								? "border-b border-background-500"
-								: ""
-						}`}
-					>
-						<Text className="text-accent-500 text-base">{option.label}</Text>
-
-						<Icon
-							name={currentTimeout === option.value ? "circle-check" : "circle"}
-							size={22}
-							color={
-								currentTimeout === option.value ? 'primary' : 'neutral'
-							}
-						/>
-					</Pressable>
-				))}
-			</View>
+			<AutoLockSelect
+				label="Tempo para bloqueio"
+				options={TIMEOUT_OPTIONS}
+				currentValue={currentTimeout}
+				onSelect={handleUpdateTime}
+			/>
 		</View>
 	);
 }

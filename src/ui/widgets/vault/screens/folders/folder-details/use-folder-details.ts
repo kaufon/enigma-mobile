@@ -37,7 +37,6 @@ export const useFolderDetailsViewModel = (folderId: string) => {
 		}
 	}, [folderId, foldersService, folder]);
 
-	// 2. Substitua o useEffect por useFocusEffect
 	useFocusEffect(
 		useCallback(() => {
 			loadData();
@@ -61,7 +60,7 @@ export const useFolderDetailsViewModel = (folderId: string) => {
 							const response = await foldersService.delete(folderId);
 							if (response.isSuccess) {
 								show("Pasta excluída com sucesso!", "success");
-								router.back(); // Volta para a tela anterior (o cofre)
+								router.back(); 
 							} else {
 								show(
 									response.errorMessage || "Falha ao excluir a pasta.",

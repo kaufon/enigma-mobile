@@ -1,8 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import Toast from "react-native-toast-message";
 import { DarkTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { GestureHandlerRootView } from "react-native-gesture-handler"; // Garanta que este import exista
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect, useState } from "react";
 import { Slot } from "expo-router";
@@ -10,7 +9,7 @@ import { Slot } from "expo-router";
 import "../ui/styles/global.css";
 import { AuthContextProvider } from "@/src/ui/widgets/auth/contexts/auth-context";
 import { UiProvider } from "@/src/ui/gluestack/ui-provider";
-import { toastConfig } from "@/src/ui/styles/toast.config";
+import { ToastProvider } from "@/src/ui/widgets/global/components/toast/toast-provider";
 
 export { ErrorBoundary } from "expo-router";
 
@@ -39,13 +38,15 @@ export default function RootLayout() {
 function RootLayoutNav() {
 	return (
 		<GestureHandlerRootView style={{ flex: 1 }}>
-			<UiProvider>
-				<ThemeProvider value={DarkTheme}>
-					<AuthContextProvider>
-						<Slot />
-					</AuthContextProvider>
-				</ThemeProvider>
-			</UiProvider>
+			<ToastProvider>
+				<UiProvider>
+					<ThemeProvider value={DarkTheme}>
+						<AuthContextProvider>
+							<Slot />
+						</AuthContextProvider>
+					</ThemeProvider>
+				</UiProvider>
+			</ToastProvider>
 		</GestureHandlerRootView>
 	);
 }

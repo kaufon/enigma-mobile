@@ -74,7 +74,6 @@ const Item = ({
 	);
 };
 
-// Atribui os subcomponentes ao componente principal
 Menu.Trigger = Trigger;
 Menu.Content = Content;
 Menu.Item = Item;

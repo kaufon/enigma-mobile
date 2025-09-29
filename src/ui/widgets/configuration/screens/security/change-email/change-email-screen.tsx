@@ -36,7 +36,7 @@ export default function ChangeEmailScreenView({
 	const [isEditing, setEditing] = useState(false);
 
 	const handleCancel = () => {
-		reset({ email: initialEmail, passwordConfirmation: "" }); // Restaura os valores
+		reset({ email: initialEmail, passwordConfirmation: "" }); 
 		setEditing(false);
 	};
 

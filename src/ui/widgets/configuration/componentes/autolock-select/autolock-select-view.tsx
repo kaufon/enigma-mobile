@@ -1,82 +1,87 @@
 import { useState } from "react";
-import {
-    ActionsheetItem,
-    ActionsheetItemText,
-} from "@/src/ui/gluestack/actionsheet";
-import { Text, View } from "@/src/ui/widgets/global/components/Themed";
+import { Pressable, View, Modal, FlatList } from "react-native";
+import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
-import { Sheet } from "@/src/ui/widgets/global/components/action-sheet";
-// Importe o Pressable do react-native para garantir o comportamento padrão.
-import { Pressable } from "react-native";
 
 type Option = {
-    label: string;
-    value: number | null;
+	label: string;
+	value: number | null;
 };
 
 type Props = {
-    label: string;
-    options: Option[];
-    currentValue: number | null | undefined;
-    onSelect: (value: number | null) => void;
+	label: string;
+	options: Option[];
+	currentValue: number | null | undefined;
+	onSelect: (value: number | null) => void;
 };
 
 export const AutoLockSelectView = ({
-    label,
-    options,
-    currentValue,
-    onSelect,
+	label,
+	options,
+	currentValue,
+	onSelect,
 }: Props) => {
-    const [isSheetOpen, setSheetOpen] = useState(false);
+	const [isModalVisible, setModalVisible] = useState(false);
 
-    const selectedOptionLabel =
-        options.find((o) => o.value === currentValue)?.label || "Nunca";
+	const selectedOptionLabel =
+		options.find((o) => o.value === currentValue)?.label || "Nunca";
 
-    // Função para abrir o Sheet de forma segura
-    const handleOpenSheet = () => {
-    console.log("Opening sheet...");
-        setTimeout(() => {
-            setSheetOpen(true);
-        }, 0);
-    };
+	const handleSelect = (value: number | null) => {
+		onSelect(value);
+		setModalVisible(false);
+	};
 
-    return (
-        <>
-            <View className="my-2">
-                <Text className="text-neutral-500 mb-2">{label}</Text>
-                <Pressable
-                    onPress={handleOpenSheet} // Usamos a nova função aqui
-                    className="bg-surface-500 p-3 h-16 rounded-md flex-row justify-between items-center border border-neutral-500/20"
-                >
-                    <Text className="text-accent-500 text-base">
-                        {selectedOptionLabel}
-                    </Text>
-                    <Icon name="arrow-down" size={16} />
-                </Pressable>
-            </View>
+	return (
+		<>
+			<View className="my-2">
+				<Text className="text-neutral-500 mb-2">{label}</Text>
+				<Pressable
+					onPress={() => setModalVisible(true)}
+					className="bg-background-500 p-3 h-16 rounded-md flex-row justify-between items-center border border-neutral-500/20"
+				>
+					<Text className="text-accent-500 text-base">
+						{selectedOptionLabel}
+					</Text>
+					<Icon name="arrow-down" size={16} color="neutral" />
+				</Pressable>
+			</View>
 
-            <Sheet isOpen={isSheetOpen} onClose={() => setSheetOpen(false)}>
-                {options.map((option) => (
-                    <ActionsheetItem
-                        key={option.label}
-                        onPress={() => {
-                            onSelect(option.value);
-                            setSheetOpen(false);
-                        }}
-                        // Adicionei um estilo para o item selecionado, para melhor feedback visual
-                        className={`flex-row justify-between items-center p-4 border-b border-background-500 ${
-                            currentValue === option.value ? "bg-primary-500/10" : ""
-                        }`}
-                    >
-                        <ActionsheetItemText className="text-accent-500">
-                            {option.label}
-                        </ActionsheetItemText>
-                        {currentValue === option.value && (
-                            <Icon name="check" size={20} color="primary" />
-                        )}
-                    </ActionsheetItem>
-                ))}
-            </Sheet>
-        </>
-    );
+			<Modal
+				animationType="fade"
+				transparent={true}
+				visible={isModalVisible}
+				onRequestClose={() => setModalVisible(false)}
+			>
+				<Pressable
+					className="flex-1 bg-black/60 justify-center items-center"
+					onPress={() => setModalVisible(false)}
+				>
+					<View className="bg-surface-500 rounded-2xl max-h-[60%] w-[90%]">
+						<View className="p-4 border-b border-neutral-500/20 items-center">
+							<Text className="text-lg font-bold text-accent-500">
+								Selecionar Tempo
+							</Text>
+						</View>
+						<FlatList
+							data={options}
+							keyExtractor={(item) => item.label}
+							renderItem={({ item }) => (
+								<Pressable
+									onPress={() => handleSelect(item.value)}
+									className="flex-row items-center justify-between p-4 border-b border-neutral-500/10"
+								>
+									<Text className="text-accent-500 text-base">
+										{item.label}
+									</Text>
+									{currentValue === item.value && (
+										<Icon name="check" size={20} color="primary" />
+									)}
+								</Pressable>
+							)}
+						/>
+					</View>
+				</Pressable>
+			</Modal>
+		</>
+	);
 };

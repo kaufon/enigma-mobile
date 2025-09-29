@@ -12,8 +12,8 @@ const registerCredentialFormSchema = z.object({
 	title: stringSchema.optional(),
 	username: stringSchema.optional(),
 	password: stringSchema.optional(),
-	url: stringSchema.optional(),
-	categoryId: stringSchema.optional(),
+	url: z.string().optional(),
+	categoryId: z.string().optional().nullable(),
 });
 
 type RegisterCredentialFormSchema = z.infer<
@@ -21,8 +21,8 @@ type RegisterCredentialFormSchema = z.infer<
 >;
 export const useEditCredentialForm = (id: string) => {
 	const { show } = useToast();
-	const [isLoadingData, setLoadingData] = useState(true); // Estado para o carregamento inicial
-	const [folders, setFolders] = useState<FolderDto[]>([]); // 👈 Estado para as pastas
+	const [isLoadingData, setLoadingData] = useState(true);
+	const [folders, setFolders] = useState<FolderDto[]>([]);
 	const { credentialService, folderService: foldersService } = useRest();
 
 	const {
@@ -39,20 +39,19 @@ export const useEditCredentialForm = (id: string) => {
 		const loadInitialData = async () => {
 			setLoadingData(true);
 			try {
-				// Busca a credencial e a lista de pastas em paralelo
 				const [credentialResponse, foldersResponse] = await Promise.all([
 					credentialService.getById(id),
 					foldersService.findMany(),
 				]);
 
 				if (credentialResponse.isSuccess && credentialResponse.body) {
-					reset(credentialResponse.body); // Popula o formulário
+					reset(credentialResponse.body); 
 				} else {
 					show("Não foi possível carregar a credencial.", "error");
 				}
 
 				if (foldersResponse.isSuccess && foldersResponse.body) {
-					setFolders(foldersResponse.body); // Salva a lista de pastas
+					setFolders(foldersResponse.body); 
 				}
 			} catch (error) {
 				show("Erro ao carregar dados.", "error");
@@ -69,7 +68,7 @@ export const useEditCredentialForm = (id: string) => {
 			const response = await credentialService.update(id, data);
 			if (response.isSuccess) {
 				show("Credencial atualizada com sucesso!", "success");
-				router.back(); // Volta para a lista
+				router.back(); 
 			} else {
 				show(
 					response.errorMessage || "Falha ao atualizar a credencial.",
