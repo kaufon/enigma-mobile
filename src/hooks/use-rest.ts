@@ -6,7 +6,7 @@ import { SecurityService } from "@/src/api/services/security-service";
 import { UserService } from "@/src/api/services/user-service";
 import {  useMemo } from "react";
 
-const baseURL = "http://192.168.0.14:3333";
+const baseURL = "http://3333";
 export const restClient = new ApiClient(baseURL);
 
 export function useRest() {
