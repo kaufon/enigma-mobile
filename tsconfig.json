@@ -4,6 +4,9 @@
     "strict": true,
     "paths": {
       "@/*": ["./*"],
+      "@/gluestack/*": ["./src/ui/gluestack/*"],
+      "@/widgets/*": ["./src/ui/widgets/*"],
+      "@/constants/*": ["./src/constants/*"],
       "tailwind.config": ["./tailwind.config.js"]
     }
   },
