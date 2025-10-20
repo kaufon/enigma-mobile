@@ -51,6 +51,7 @@ import {
     AlertTriangle,
     AlertCircle,
     Info,
+    StickyNote,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -105,5 +106,6 @@ export const ICONS: Record<IconName, LucideIcon> = {
   warning: AlertTriangle,
   danger: AlertCircle,
 	tag: Tag,
-  info: Info
+  info: Info,
+  "safe-note": StickyNote
 };

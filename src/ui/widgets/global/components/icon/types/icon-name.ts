@@ -48,4 +48,5 @@ export type IconName =
 	| "tag"
 	| "warning"
 	| "danger"
-	| "info";
+	| "info"
+  | "safe-note"

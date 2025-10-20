@@ -49,6 +49,12 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 						iconName="globe"
 						count={5}
 						href="/vault/credentials"
+					/>
+					<VaultListItem
+						label="Nota segura"
+						iconName="safe-note"
+						count={5}
+						href="/vault/safe-notes"
             hasBottomBorder={false}
 					/>
 				</View>
