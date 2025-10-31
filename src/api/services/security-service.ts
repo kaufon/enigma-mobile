@@ -24,7 +24,24 @@ export const SecurityService = (apiClient: IApiClient): ISecurityService => {
 					autoLockTimeoutMinutes: minutes,
 				},
 			);
-      return response
+			return response;
+		},
+		async exportVault(
+			password: string,
+			format: "csv" | "json",
+		): Promise<ApiResponse<string>> {
+			console.log({
+				password: password,
+				format: format,
+			});
+			const response = await apiClient.post<string>(
+				"/configuration/vault/export",
+				{
+					password: password,
+					format: format,
+				},
+			);
+			return response;
 		},
 	};
 };

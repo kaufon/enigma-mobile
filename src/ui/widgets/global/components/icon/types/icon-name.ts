@@ -49,4 +49,7 @@ export type IconName =
 	| "warning"
 	| "danger"
 	| "info"
-  | "safe-note"
+	| "safe-note"
+	| "database"
+	| "download"
+	| "upload";

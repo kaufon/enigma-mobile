@@ -6,4 +6,8 @@ export interface ISecurityService {
 		passwordConfirmation: string,
 	): Promise<ApiResponse<void>>;
 	setAutotimeLock(minutes: number): Promise<ApiResponse<void>>;
+	exportVault(
+		password: string,
+		format: "csv" | "json",
+	): Promise<ApiResponse<string>>;
 }
