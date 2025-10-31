@@ -4,8 +4,9 @@ import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import * as Clipboard from "expo-clipboard";
 import { useToast } from "@/src/hooks/use-toast";
-import type { SafeNoteDto } from "@/src/core/dtos/safe-note"; 
+import type { SafeNoteDto } from "@/src/core/dtos/safe-note";
 import { useState } from "react";
+import { Textarea, TextareaInput } from "@/src/ui/gluestack/textarea";
 
 type Props = {
 	note: SafeNoteDto;
@@ -22,7 +23,7 @@ export const SafeNoteDetailsView = ({
 	handleDelete,
 }: Props) => {
 	const { show } = useToast();
-	const [isVisible, setIsVisible] = useState(false); 
+	const [isVisible, setIsVisible] = useState(false);
 
 	const copyContentToClipboard = async () => {
 		if (!note?.content) return;
@@ -48,11 +49,7 @@ export const SafeNoteDetailsView = ({
 	};
 	return (
 		<View className="flex-1 bg-background-500">
-			<Stack.Screen
-				options={{
-					title: note.title,
-				}}
-			/>
+			<Stack.Screen options={{ title: note.title }} />
 
 			<ScrollView contentContainerStyle={{ paddingBottom: 20 }}>
 				<View className="px-4 pt-4 mb-4">
@@ -61,19 +58,22 @@ export const SafeNoteDetailsView = ({
 					</Text>
 				</View>
 
-				<View className="mx-4 bg-surface-500 rounded-xl p-4">
-					<Text
-						selectable={true}
-						className="text-base text-accent-500 leading-6"
-					>
-						{isVisible ? note.content : "•••••••••••••••••••••••••"}
-					</Text>
-				</View>
+				<Textarea
+					isReadOnly={true} 
+					className="mx-4 bg-surface-500 rounded-xl h-64 w-50 border-0"
+				>
+					<TextareaInput
+						value={isVisible ? note.content : "•••••••••••••••••••••••••"}
+						multiline={true}
+						className="text-base text-accent-500 leading-6 p-4"
+						style={{ textAlignVertical: "top" }} 
+					/>
+				</Textarea>
 
-				<View className="mt-6 mx-4 flex-col gap-4 justify-center space-x-4">
+				<View className="mt-6 mx-4 flex-row gap-4 justify-center space-x-4">
 					<Pressable
 						onPress={toggleVisibility}
-						className="bg-neutral-500/10 p-3 rounded-lg gap-4 flex-1 items-center justify-center flex-row space-x-2"
+						className="bg-neutral-500/10 p-3 rounded-lg flex-1 gap-4 items-center justify-center flex-row space-x-2"
 					>
 						<Icon
 							name={isVisible ? "eye-close" : "eye-open"}

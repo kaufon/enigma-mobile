@@ -61,7 +61,7 @@ export const SafeNoteListView = ({
 
 			{showFab && (
 				<FloatingActionButton
-					onPress={() => navigate("/vault/safe-note/create")}
+					onPress={() => navigate("/vault/safe-notes/create")}
 					iconName="plus"
 				/>
 			)}

@@ -1,6 +1,7 @@
 import type { SafeNoteDto } from "@/src/core/dtos/safe-note";
 import { useRest } from "@/src/hooks";
 import { useNavigation } from "@/src/ui/widgets/global/hooks";
+import { useFocusEffect } from "expo-router";
 import { useState, useEffect, useCallback } from "react";
 import { Alert } from "react-native";
 
@@ -55,9 +56,11 @@ export const useSafeNoteListView = (categoryId?: string) => {
 		}
 	}, [categoryId, safeNoteService]);
 
-	useEffect(() => {
-		loadCredentials();
-	}, [loadCredentials]);
+	useFocusEffect(
+		useCallback(() => {
+			loadCredentials();
+		}, [loadCredentials]),
+	);
 
 	const handleSelectCredential = (id: string) => {
 		navigate(`/vault/safe-notes/${id}`);

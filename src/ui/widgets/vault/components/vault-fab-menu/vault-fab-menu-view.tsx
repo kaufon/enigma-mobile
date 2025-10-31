@@ -60,6 +60,11 @@ export const VaultFabMenuView = () => {
 						iconName="password"
 						onPress={() => handleNavigate("/vault/credentials/create")}
 					/>
+					<FabMenuItem
+						label="Nova Nota Segura"
+						iconName="safe-note"
+						onPress={() => handleNavigate("/vault/safe-notes/create")}
+					/>
 				</View>
 			)}
 
