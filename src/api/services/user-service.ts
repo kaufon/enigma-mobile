@@ -6,21 +6,21 @@ import type { ApiResponse } from "@/src/core/responses";
 export const UserService = (apiClient: IApiClient): IUserService => {
 	return {
     async getProfile(): Promise<ApiResponse<UserDto>> {
-        const response = await apiClient.get<UserDto>("/users/me");
+        const response = await apiClient.get<UserDto>("/security/me");
         return response;
     },
     async updateEmail(
         email: string,
         password: string
     ): Promise<ApiResponse<void>> {
-        const response = await apiClient.put<void>("/users/update/", {
+        const response = await apiClient.put<void>("/security/update-account/", {
             email,
             password,
         });
         return response;
     },
     async deleteAccount (email: string, password: string): Promise<ApiResponse<void>> {
-        const response = await apiClient.delete<void>("/users/delete", {
+        const response = await apiClient.delete<void>("/security/delete-account", {
             email,
             password,
         });

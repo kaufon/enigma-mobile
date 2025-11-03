@@ -1,4 +1,4 @@
-import { View } from "react-native";
+import { View, KeyboardAvoidingView, Platform } from "react-native";
 import { Stack, useRouter } from "expo-router";
 import { ButtonSpinner, ButtonText } from "@/src/ui/gluestack/button";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
@@ -19,7 +19,7 @@ import { ControlledPasswordInput } from "@/src/ui/widgets/global/components/cont
 import { Button } from "@/src/ui/widgets/global/components/button";
 import { COLORS } from "@/src/constants";
 import { useColorScheme } from "nativewind";
-
+import { HStack } from "@/src/ui/gluestack/hstack";
 type Props = {
 	deleteFormControl: any;
 	handleDeleteSubmit: () => Promise<void>;
@@ -89,50 +89,64 @@ export default function DeleteAccountScreenView({
 				onClose={() => setDeleteDialogOpen(false)}
 			>
 				<AlertDialogBackdrop />
-				<AlertDialogContent className="bg-surface-500 border-danger-500 rounded-xl">
-					<AlertDialogHeader>
-						<Heading className="text-danger-500">Confirmar Exclusão</Heading>
-						<AlertDialogCloseButton>
-							<Icon name="x" />
-						</AlertDialogCloseButton>
-					</AlertDialogHeader>
-					<ScrollView>
-						<AlertDialogBody>
-							<Text className="text-neutral-500 mb-4" style={{ color: theme.accent }}>
-								Esta ação é <Text style={{color:theme.danger}}>permanente</Text>. Para confirmar, por favor, insira seu
-								e-mail e senha atual.
-							</Text>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "position" : "height"}
+          style={{width: '100%',justifyContent: 'center', alignItems: 'center'}}
+				>
+					<AlertDialogContent className="bg-surface-500 border-danger-500 rounded-xl">
+						<AlertDialogHeader>
+							<Heading className="text-danger-500">Confirmar Exclusão</Heading>
+							<AlertDialogCloseButton>
+								<Icon name="x" />
+							</AlertDialogCloseButton>
+						</AlertDialogHeader>
+						<ScrollView>
+							<AlertDialogBody>
+								<Text
+									className="text-neutral-500 mb-4"
+									style={{ color: theme.accent }}
+								>
+									Esta ação é{" "}
+									<Text style={{ color: theme.danger }}>permanente</Text>. Para
+									confirmar, por favor, insira seu e-mail e senha atual.
+								</Text>
 
-							<ControlledInput
-								name="email"
-								control={deleteFormControl}
-								label="Email"
-								placeholder="Confirme seu e-mail"
-							/>
-							<ControlledPasswordInput
-								name="passwordConfirmation"
-								control={deleteFormControl}
-								label="Senha Atual"
-							/>
-						</AlertDialogBody>
-					</ScrollView>
-					<AlertDialogFooter className="mt-5">
-						<Button onPress={() => setDeleteDialogOpen(false)} className="mr-3 bg-primary-500 rounded-full">
-							<ButtonText className="text-accent-500">Cancelar</ButtonText>
-						</Button>
-						<Button
-							onPress={handleDeleteSubmit}
-							isDisabled={isDeleteDisabled || !isDeleteFormValid}
-              variant="solid"
-              className="bg-danger-500 border-danger-500 rounded-full w-full"
-						>
-							{isDeleteDisabled && <ButtonSpinner mr="$2" />}
-							<ButtonText className="text-accent-500">
-								{isDeleteDisabled ? `Excluir em (${countdown})` : "Excluir"}
-							</ButtonText>
-						</Button>
-					</AlertDialogFooter>
-				</AlertDialogContent>
+								<ControlledInput
+									name="email"
+									control={deleteFormControl}
+									label="Email"
+									placeholder="Confirme seu e-mail"
+								/>
+								<ControlledPasswordInput
+									name="passwordConfirmation"
+									control={deleteFormControl}
+									label="Senha Atual"
+								/>
+							</AlertDialogBody>
+						</ScrollView>
+						<AlertDialogFooter className="mt-5">
+							<Button
+								onPress={() => setDeleteDialogOpen(false)}
+								className="mr-3 bg-primary-500 rounded-full"
+							>
+								<ButtonText className="text-accent-500">Cancelar</ButtonText>
+							</Button>
+							<Button
+								onPress={handleDeleteSubmit}
+								isDisabled={isDeleteDisabled || !isDeleteFormValid}
+								variant="solid"
+								className="bg-danger-500 border-danger-500 rounded-full w-full"
+							>
+								<HStack space="sm" alignItems="center">
+									{isDeleteDisabled && <ButtonSpinner color="$white" />}
+									<ButtonText className="text-accent-500 pl-5">
+										{isDeleteDisabled ? `Excluir em (${countdown})` : "Excluir"}
+									</ButtonText>
+								</HStack>
+							</Button>
+						</AlertDialogFooter>
+					</AlertDialogContent>
+				</KeyboardAvoidingView>
 			</AlertDialog>
 		</View>
 	);

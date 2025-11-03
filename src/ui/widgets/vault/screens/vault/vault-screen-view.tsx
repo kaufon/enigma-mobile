@@ -12,7 +12,11 @@ type Props = {
 	folders: FolderDto[];
 	isLoading: boolean;
 };
-
+const vaultMenuItems = [
+  { label: "Nova Pasta", iconName: "folder", href: "/vault/folders/create" },
+  { label: "Nova Credencial", iconName: "password", href: "/vault/credentials/create" },
+  { label: "Nova Nota Segura", iconName: "safe-note", href: "/vault/safe-notes/create" }
+];
 export const VaultScreenView = ({ folders, isLoading }: Props) => {
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
@@ -49,6 +53,12 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 						iconName="globe"
 						count={5}
 						href="/vault/credentials"
+					/>
+					<VaultListItem
+						label="Nota segura"
+						iconName="safe-note"
+						count={5}
+						href="/vault/safe-notes"
             hasBottomBorder={false}
 					/>
 				</View>
@@ -67,7 +77,7 @@ export const VaultScreenView = ({ folders, isLoading }: Props) => {
 				</View>
 			</ScrollView>
 
-			<VaultFabMenu />
+			<VaultFabMenu items={vaultMenuItems} />
 		</View>
 	);
 };

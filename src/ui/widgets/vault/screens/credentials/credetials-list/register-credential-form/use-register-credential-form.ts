@@ -1,6 +1,7 @@
-import { FolderDto } from "@/src/core/dtos/folder";
+import type { FolderDto } from "@/src/core/dtos/folder";
 import { useRest } from "@/src/hooks";
 import { useToast } from "@/src/hooks/use-toast";
+import { useEmergencyVault } from "@/src/ui/widgets/emergency-vault/contexts/emergency-vault-context";
 import { stringSchema } from "@/src/validation/schemas/zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
@@ -18,7 +19,10 @@ const registerCredentialFormSchema = z.object({
 type RegisterCredentialFormSchema = z.infer<
 	typeof registerCredentialFormSchema
 >;
-export const useRegisterCredentialForm = (onSuccess: () => void) => {
+export const useRegisterCredentialForm = ({
+	isEmergency = false,
+	onSuccess,
+}: { isEmergency?: boolean; onSuccess: () => void }) => {
 	const { show } = useToast();
 	const { credentialService, folderService: foldersService } = useRest();
 	const [folders, setFolders] = useState<FolderDto[]>([]);
@@ -37,6 +41,12 @@ export const useRegisterCredentialForm = (onSuccess: () => void) => {
 			url: "",
 		},
 	});
+	let emergencyVault;
+	try {
+		emergencyVault = useEmergencyVault();
+	} catch (e) {
+		emergencyVault = null;
+	}
 	useEffect(() => {
 		const loadFolders = async () => {
 			setIsLoadingFolders(true);
@@ -53,9 +63,12 @@ export const useRegisterCredentialForm = (onSuccess: () => void) => {
 	}, [foldersService]);
 	const handleFormSubmit = async (data: RegisterCredentialFormSchema) => {
 		try {
-			const response = await credentialService.create(data);
+			const response = await credentialService.create({ ...data, isEmergency });
 			if (response.isSuccess) {
 				show("Credencial salva com sucesso!", "success");
+				if (isEmergency && emergencyVault) {
+					await emergencyVault.refreshItems();
+				}
 				onSuccess();
 			} else {
 				show(response.errorMessage || "Falha ao salvar a credencial.", "error");

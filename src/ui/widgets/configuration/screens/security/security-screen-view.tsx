@@ -24,6 +24,16 @@ export default function SecurityScreenView() {
 					href="/configuration/security/autolock-time"
 				/>
 				<VaultListItem
+					label="Cofre de emergencia"
+					iconName="safe"
+					href="/configuration/security/emergency-vault"
+				/>
+        <VaultListItem
+          label="Biometria"
+          iconName="fingerprint"
+          href="/configuration/security/biometrics"
+        />
+				<VaultListItem
 					label="Deletar conta"
 					iconName="trash"
 					href="/configuration/security/delete-account"

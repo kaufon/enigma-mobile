@@ -10,6 +10,8 @@ type Props = {
 	count?: number;
 	href: Href;
 	hasBottomBorder?: boolean;
+	onDelete?: VoidFunction
+	showDelete?: boolean;
 };
 
 export const VaultListItemView = ({
@@ -18,6 +20,8 @@ export const VaultListItemView = ({
 	count,
 	href,
 	hasBottomBorder = true,
+	onDelete,
+	showDelete = false,
 }: Props) => (
 	<Link href={href} asChild>
 		<Pressable
@@ -27,6 +31,14 @@ export const VaultListItemView = ({
 				<Icon name={iconName} size={20} color="accent" />
 				<Text className="text-accent-500 font-bold">{label}</Text>
 			</View>
+			{showDelete && (
+				<Pressable
+					onPress={onDelete}
+					className="p-2"
+				>
+					<Icon name="trash" size={20} color="danger" />
+				</Pressable>
+			)}
 		</Pressable>
 	</Link>
 );

@@ -2,6 +2,7 @@ import { useSecureStore } from "@/src/ui/widgets/global/hooks";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { restClient as apiClient } from "@/src/hooks/use-rest";
 import { useToast } from "@/src/hooks/use-toast";
+import * as LocalAuthentication from "expo-local-authentication";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { UserDto } from "@/src/core/dtos/user";
 import { AuthService } from "@/src/api/services";
@@ -36,6 +37,9 @@ export function useAuthContextProvider() {
 	const signOut = useCallback(async () => {
 		await secureStore.deleteItem("accessToken");
 		await secureStore.deleteItem("refreshToken");
+		await secureStore.deleteItem("biometric_master_password");
+		await AsyncStorage.removeItem("biometric_enabled");
+		await AsyncStorage.removeItem("biometric_user_email");
 		apiClient.setHeader("Authorization", "");
 		setAuthState({ ...initialState, isLoading: false });
 	}, [secureStore]);
@@ -44,9 +48,96 @@ export function useAuthContextProvider() {
 		apiClient.setSignOutCallback(signOut);
 	}, [signOut]);
 
+	const fetchUser = useCallback(async () => {
+		try {
+			const response = await userService.getProfile();
+			if (response.isSuccess && response.body) {
+				setAuthState((currentState) => ({
+					...currentState,
+					user: response.body,
+				}));
+				return true;
+			} else {
+				await signOut();
+				return false;
+			}
+		} catch (error) {
+			await signOut();
+			return false;
+		}
+	}, [userService, signOut]);
+
+	const signIn = useCallback(
+		async (email: string, password: string, isBiometricSignIn = false) => {
+			try {
+				const response = await authService.signIn(email, password);
+				if (response.isSuccess && response.body) {
+					const { accessToken } = response.body;
+					const refreshToken = "123-teste";
+
+					await secureStore.setItem("accessToken", accessToken);
+					await secureStore.setItem("refreshToken", refreshToken);
+					apiClient.setHeader("Authorization", `Bearer ${accessToken}`);
+
+					const profileLoaded = await fetchUser();
+					if (profileLoaded) {
+						setAuthState((s) => ({
+							...s,
+							accessToken,
+							refreshToken,
+							authenticated: true,
+							isLoading: false,
+						}));
+					}
+				} else {
+					if (!isBiometricSignIn) show("Credenciais inválidas", "error");
+				}
+			} catch (error) {
+				if (!isBiometricSignIn) show("Ocorreu um erro inesperado.", "error");
+			}
+		},
+		[authService, secureStore, fetchUser, signOut, show],
+	);
+
 	useEffect(() => {
+		const tryBiometricLogin = async () => {
+			try {
+				const isBiometricEnabled =
+					await AsyncStorage.getItem("biometric_enabled");
+				if (isBiometricEnabled !== "true") return false;
+
+				const isHardwareAvailable =
+					await LocalAuthentication.hasHardwareAsync();
+				const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+				if (!isHardwareAvailable || !isEnrolled) return false;
+
+				const result = await LocalAuthentication.authenticateAsync({
+					promptMessage: "Desbloquear Cofre",
+				});
+
+				if (result.success) {
+					const email = await AsyncStorage.getItem("biometric_user_email");
+					const password = await secureStore.getItem(
+						"biometric_master_password",
+					);
+
+					if (email && password) {
+						await signIn(email, password, true);
+						return true;
+					}
+				}
+				return false;
+			} catch (e) {
+				console.error(e);
+				return false;
+			}
+		};
+
 		const loadSession = async () => {
 			try {
+				const biometricSuccess = await tryBiometricLogin();
+				if (biometricSuccess) return; 
+
 				const accessToken = await secureStore.getItem("accessToken");
 				const refreshToken = await secureStore.getItem("refreshToken");
 
@@ -78,55 +169,6 @@ export function useAuthContextProvider() {
 
 		loadSession();
 	}, []);
-
-	const refreshUser = useCallback(async () => {
-		try {
-			const response = await userService.getProfile();
-
-			if (response.isSuccess && response.body) {
-				setAuthState((currentState) => ({
-					...currentState,
-					user: response.body,
-				}));
-			} else {
-				await signOut();
-			}
-		} catch (error) {
-			await signOut();
-		}
-	}, [userService, signOut]); 
-
-	const signIn = async (email: string, password: string) => {
-		try {
-			const response = await authService.signIn(email, password);
-			if (response.isSuccess && response.body) {
-				const { accessToken } = response.body;
-				const refreshToken = "123-teste";
-
-				await secureStore.setItem("accessToken", accessToken);
-				await secureStore.setItem("refreshToken", refreshToken);
-
-				apiClient.setHeader("Authorization", `Bearer ${accessToken}`);
-
-				const profileResponse = await userService.getProfile();
-				if (profileResponse.isSuccess && profileResponse.body) {
-					setAuthState({
-						accessToken,
-						refreshToken,
-						authenticated: true,
-						isLoading: false,
-						user: profileResponse.body,
-					});
-				} else {
-					await signOut();
-				}
-			} else {
-				show("Credenciais inválidas", "error");
-			}
-		} catch (error) {
-			show("Ocorreu um erro inesperado. Tente novamente mais tarde.", "error");
-		}
-	};
 	useEffect(() => {
 		const subscription = AppState.addEventListener(
 			"change",
@@ -186,6 +228,6 @@ export function useAuthContextProvider() {
 		...authState,
 		signIn,
 		signOut,
-		refreshUser,
+		refreshUser:fetchUser,
 	};
 }
