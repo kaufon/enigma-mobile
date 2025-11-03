@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Pressable, View } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, type Href } from "expo-router";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
-import { IconName } from "@/src/ui/widgets/global/components/icon/types";
+import type { IconName } from "@/src/ui/widgets/global/components/icon/types";
 
 const FabMenuItem = ({
 	label,
@@ -22,20 +22,30 @@ const FabMenuItem = ({
 			<Text className="text-accent-500 font-semibold">{label}</Text>
 		</View>
 		<View className="bg-surface-500 w-12 h-12 rounded-full items-center justify-center shadow-lg">
-			<Icon name={iconName} size={20} color="accent" />
+			<Icon name={iconName} size={20} className="text-neutral-500" />
 		</View>
 	</Pressable>
 );
 
-export const VaultFabMenuView = () => {
+type FabMenuItemProp = {
+	label: string;
+	iconName: IconName;
+	href: Href<string>;
+};
+
+type Props = {
+	items: FabMenuItemProp[];
+};
+
+export const VaultFabMenuView = ({ items }: Props) => {
 	const [isOpen, setOpen] = useState(false);
 	const router = useRouter();
 
 	const toggleMenu = () => setOpen(!isOpen);
 
-	const handleNavigate = (href: string) => {
-		setOpen(false); 
-		router.push(href as any);
+	const handleNavigate = (href: Href<string>) => {
+		setOpen(false);
+		router.push(href);
 	};
 
 	return (
@@ -43,28 +53,21 @@ export const VaultFabMenuView = () => {
 			{isOpen && (
 				<Pressable
 					className="absolute inset-0 bg-black/30"
-					style={{ right: -24, bottom: -24, top: -1000, left: -1000 }} 
+					style={{ right: -24, bottom: -24, top: -1000, left: -1000 }}
 					onPress={toggleMenu}
 				/>
 			)}
 
 			{isOpen && (
 				<View className="mb-4">
-					<FabMenuItem
-						label="Nova Pasta"
-						iconName="folder"
-						onPress={() => handleNavigate("/vault/folders/create")}
-					/>
-					<FabMenuItem
-						label="Nova Credencial"
-						iconName="password"
-						onPress={() => handleNavigate("/vault/credentials/create")}
-					/>
-					<FabMenuItem
-						label="Nova Nota Segura"
-						iconName="safe-note"
-						onPress={() => handleNavigate("/vault/safe-notes/create")}
-					/>
+					{items.map((item) => (
+						<FabMenuItem
+							key={item.label}
+							label={item.label}
+							iconName={item.iconName}
+							onPress={() => handleNavigate(item.href)}
+						/>
+					))}
 				</View>
 			)}
 
@@ -72,7 +75,7 @@ export const VaultFabMenuView = () => {
 				className="bg-primary-500 w-14 h-14 rounded-full items-center justify-center shadow-lg"
 				onPress={toggleMenu}
 			>
-				<Icon name={isOpen ? "x" : "plus"} size={24} color="accent"/>
+				<Icon name={isOpen ? "x" : "plus"} size={24} color="accent" />
 			</Pressable>
 		</View>
 	);

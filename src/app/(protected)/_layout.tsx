@@ -3,7 +3,6 @@ import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import { COLORS } from "@/src/constants";
 import { useColorScheme } from "nativewind";
-import { useState } from "react";
 
 export default function TabLayout() {
 	const { authenticated } = useAuthContext();
@@ -43,6 +42,15 @@ export default function TabLayout() {
 						title: "Gerador",
 						tabBarIcon: ({ focused }) => (
 							<Icon name="generator" color={focused ? "primary" : "neutral"} />
+						),
+					}}
+				/>
+				<Tabs.Screen
+					name="emergency"
+					options={{
+						title: "Emergência",
+						tabBarIcon: ({ focused }) => (
+							<Icon name="safe" color={focused ? "primary" : "neutral"} />
 						),
 					}}
 				/>

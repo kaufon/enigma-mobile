@@ -43,5 +43,18 @@ export const SecurityService = (apiClient: IApiClient): ISecurityService => {
 			);
 			return response;
 		},
+		async setEmergencyVaultPassword(
+			emergencyVaultPassword: string,
+			password: string,
+		): Promise<ApiResponse<void>> {
+			const response = await apiClient.post<void>(
+				"/security/setup-emergency-vault",
+				{
+					password: password,
+					emergencyVaultPassword,
+				},
+			);
+			return response;
+		},
 	};
 };

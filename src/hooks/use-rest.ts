@@ -1,6 +1,7 @@
 import { ApiClient } from "@/src/api/axios/clients/axios-client";
 import { AuthService, SafeNoteService } from "@/src/api/services";
 import { CredentialsService } from "@/src/api/services/credential-service";
+import { EmergencyVaultService } from "@/src/api/services/emergency-vault-service";
 import { FoldersService } from "@/src/api/services/folder-service";
 import { SecurityService } from "@/src/api/services/security-service";
 import { UserService } from "@/src/api/services/user-service";
@@ -18,6 +19,7 @@ export function useRest() {
 			userService: UserService(restClient),
 			securityService: SecurityService(restClient),
 			safeNoteService: SafeNoteService(restClient),
+      emergencyVaultService: EmergencyVaultService(restClient),
 		};
 	}, []);
 

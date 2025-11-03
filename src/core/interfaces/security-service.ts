@@ -10,4 +10,8 @@ export interface ISecurityService {
 		password: string,
 		format: "csv" | "json",
 	): Promise<ApiResponse<string>>;
+	setEmergencyVaultPassword(
+		emergencyVaultPassword: string,
+		password: string,
+	): Promise<ApiResponse<void>>;
 }

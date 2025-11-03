@@ -55,6 +55,7 @@ import {
     Database,
     Download,
     Upload,
+    Turntable,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -113,5 +114,6 @@ export const ICONS: Record<IconName, LucideIcon> = {
   "safe-note": StickyNote,
   database: Database,
   download: Download,
-  upload: Upload
+  upload: Upload,
+  safe: Turntable,
 };

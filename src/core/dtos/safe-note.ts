@@ -5,4 +5,5 @@ export type SafeNoteDto = {
 	categoryId?: string;
 	createdAt?: Date;
 	updateAt?: Date;
+  isEmergency?: boolean;
 };

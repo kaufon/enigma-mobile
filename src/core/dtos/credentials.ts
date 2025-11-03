@@ -5,4 +5,5 @@ export type CredentialDto = {
 	url?: string;
 	password?: string;
 	categoryId?: string;
+  isEmergency?: boolean;
 }

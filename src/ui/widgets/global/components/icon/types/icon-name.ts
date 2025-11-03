@@ -52,4 +52,5 @@ export type IconName =
 	| "safe-note"
 	| "database"
 	| "download"
-	| "upload";
+	| "upload"
+	| "safe";

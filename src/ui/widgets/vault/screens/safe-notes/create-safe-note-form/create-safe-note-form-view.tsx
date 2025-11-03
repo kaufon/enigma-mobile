@@ -21,7 +21,6 @@ export default function CreateSafeNoteFormView({
 }: Props) {
 	return (
 		<View className="flex-1 bg-background-500 p-4">
-			<Stack.Screen options={{ title: "Nova Nota Segura" }} />
 
 			<ScrollView showsVerticalScrollIndicator={false}>
 				<FormSection title="Detalhes da Nota" />
