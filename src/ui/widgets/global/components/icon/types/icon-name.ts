@@ -53,4 +53,5 @@ export type IconName =
 	| "database"
 	| "download"
 	| "upload"
-	| "safe";
+	| "safe"
+  | "fingerprint";

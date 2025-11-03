@@ -28,6 +28,11 @@ export default function SecurityScreenView() {
 					iconName="safe"
 					href="/configuration/security/emergency-vault"
 				/>
+        <VaultListItem
+          label="Biometria"
+          iconName="fingerprint"
+          href="/configuration/security/biometrics"
+        />
 				<VaultListItem
 					label="Deletar conta"
 					iconName="trash"

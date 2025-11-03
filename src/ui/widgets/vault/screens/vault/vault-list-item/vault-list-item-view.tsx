@@ -10,7 +10,7 @@ type Props = {
 	count?: number;
 	href: Href;
 	hasBottomBorder?: boolean;
-	onDelete: VoidFunction
+	onDelete?: VoidFunction
 	showDelete?: boolean;
 };
 
