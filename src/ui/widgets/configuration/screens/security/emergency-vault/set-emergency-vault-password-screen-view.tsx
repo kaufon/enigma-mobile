@@ -24,8 +24,7 @@ export const SetEmergencyPasswordScreenView = ({
 			<Stack.Screen options={{ title: "Cofre de Emergência" }} />
 			<ScrollView>
 				<Text className="text-neutral-500 mb-4">
-					A senha de emergência dá acesso a um cofre separado. Esta senha **não
-					pode ser alterada** após ser definida. Confirme com sua senha mestra.
+					A senha de emergência dá acesso a um cofre separado. 
 				</Text>
 
 				<FormSection title="Nova Senha de Emergência" />

@@ -8,7 +8,7 @@ export const CreateSafeNoteScreen = () => {
 	const { control, isSubmitting, isValid, handleSubmit } =
 		useCreateSecureNoteForm({ onSuccess: () => router.back() });
 	return (
-		<View>
+		<View className="h-full">
 			<Stack.Screen options={{ title: "Nova Nota Segura" }} />
 			<CreateSafeNoteFormView
 				control={control}

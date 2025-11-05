@@ -55,6 +55,7 @@ export const useSetEmergencyPasswordForm = () => {
 				show("Senha do cofre emergência definida com sucesso!", "success");
 				router.back();
 			} else {
+        console.log(response.errorMessage)
 				show(
 					response.errorMessage || "Falha ao definir. Senha mestra incorreta?",
 					"error",
