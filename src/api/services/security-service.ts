@@ -56,5 +56,12 @@ export const SecurityService = (apiClient: IApiClient): ISecurityService => {
 			);
 			return response;
 		},
+		async importVault(formData: FormData): Promise<ApiResponse<void>> {
+			const response = await apiClient.post<void>(
+				"/configuration/vault/import",
+        formData,
+			);
+			return response;
+		},
 	};
 };

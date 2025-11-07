@@ -14,4 +14,7 @@ export interface ISecurityService {
 		emergencyVaultPassword: string,
 		password: string,
 	): Promise<ApiResponse<void>>;
+	importVault(
+    formData: FormData
+	): Promise<ApiResponse<void>>;
 }

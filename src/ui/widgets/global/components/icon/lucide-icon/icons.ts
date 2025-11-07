@@ -57,6 +57,7 @@ import {
     Upload,
     Turntable,
     Fingerprint,
+    File,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -118,4 +119,5 @@ export const ICONS: Record<IconName, LucideIcon> = {
   upload: Upload,
   safe: Turntable,
   fingerprint: Fingerprint,
+  file: File
 };
