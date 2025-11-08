@@ -74,7 +74,7 @@ export const CreateShareFormView = ({
 			isOpen={isOpen}
 			onClose={onClose}
 			title="Compartilhar Credencial"
-			description="Crie um link seguro para compartilhar esta credencial. Confirme sua senha mestra para continuar."
+			description=""
 			children={
 				<View className="gap-4">
 					<Select
