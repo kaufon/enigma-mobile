@@ -22,8 +22,8 @@ export const ReportsScreenView = () => {
 			<View className="bg-surface-500 rounded-lg mx-4">
 				<VaultListItem
 					label="Notificações"
-					iconName="heart-pulse"
-					href="/configuration/reports/vault-health"
+					iconName="mail-check"
+					href="/configuration/reports/notifications"
           hasBottomBorder={false}
 				/>
 			</View>

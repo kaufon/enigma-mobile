@@ -1,4 +1,5 @@
 import type { ApiResponse } from "@/src/core/responses";
+import { ReportSchedule } from "@/src/core/types/report-schedule";
 
 export interface ISecurityService {
 	setRecoveryPhrase(
@@ -14,7 +15,10 @@ export interface ISecurityService {
 		emergencyVaultPassword: string,
 		password: string,
 	): Promise<ApiResponse<void>>;
-	importVault(
-    formData: FormData
-	): Promise<ApiResponse<void>>;
+	importVault(formData: FormData): Promise<ApiResponse<void>>;
+	setupReport(data: {
+		masterPassword: string;
+		reportNotificationEnabled: boolean;
+		reportNotificationSchedule: ReportSchedule;
+	}): Promise<ApiResponse<void>>;
 }

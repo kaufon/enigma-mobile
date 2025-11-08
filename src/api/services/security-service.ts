@@ -1,6 +1,7 @@
 import type { IApiClient } from "@/src/core/interfaces/api-client";
 import type { ISecurityService } from "@/src/core/interfaces/security-service";
 import type { ApiResponse } from "@/src/core/responses";
+import { ReportSchedule } from "@/src/core/types/report-schedule";
 
 export const SecurityService = (apiClient: IApiClient): ISecurityService => {
 	return {
@@ -59,7 +60,22 @@ export const SecurityService = (apiClient: IApiClient): ISecurityService => {
 		async importVault(formData: FormData): Promise<ApiResponse<void>> {
 			const response = await apiClient.post<void>(
 				"/configuration/vault/import",
-        formData,
+				formData,
+			);
+			return response;
+		},
+		async setupReport(data: {
+			masterPassword: string;
+			reportNotificationEnabled: boolean;
+			reportNotificationSchedule: ReportSchedule;
+		}): Promise<ApiResponse<void>> {
+			const response = await apiClient.post<void>(
+				"/security/setup-report",
+        {
+          masterPassword: data.masterPassword,
+          reportNotificationEnabled: data.reportNotificationEnabled,
+          reportNotificationSchedule: data.reportNotificationSchedule,
+        },
 			);
 			return response;
 		},
