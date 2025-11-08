@@ -46,6 +46,15 @@ export default function TabLayout() {
 					}}
 				/>
 				<Tabs.Screen
+					name="share"
+					options={{
+						title: "Compartilhar",
+						tabBarIcon: ({ focused }) => (
+							<Icon name="share" color={focused ? "primary" : "neutral"} />
+						),
+					}}
+				/>
+				<Tabs.Screen
 					name="emergency"
 					options={{
 						title: "Emergência",

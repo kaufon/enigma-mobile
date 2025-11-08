@@ -1,6 +1,6 @@
-import { FolderDto } from "@/src/core/dtos/folder";
+import type { FolderDto } from "@/src/core/dtos/folder";
 import type { IApiClient } from "@/src/core/interfaces/api-client";
-import { IFolderService } from "@/src/core/interfaces/folder-service";
+import type { IFolderService } from "@/src/core/interfaces/folder-service";
 import type { ApiResponse } from "@/src/core/responses";
 export const FoldersService = (apiClient: IApiClient): IFolderService => {
 	return {

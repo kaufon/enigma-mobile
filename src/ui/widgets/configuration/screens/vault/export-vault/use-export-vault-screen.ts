@@ -3,9 +3,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { useRest } from "@/src/hooks";
 
-import { File, Paths } from "expo-file-system";
 import * as FileSystem from "expo-file-system/legacy";
-import * as Sharing from "expo-sharing";
 import { useToast } from "@/src/hooks/use-toast";
 import { Platform } from "react-native";
 import { Alert } from "react-native";
@@ -41,8 +39,6 @@ export const useExportVaultScreen = () => {
 			if (response.isSuccess && response.body) {
 				const date = new Date();
 				const fileName = `enigma-export-${date.getDate()}-${date.getSeconds()}.${data.format}`;
-
-				// 1. Preparar o conteúdo (como já tínhamos feito)
 				let dataToWrite: string;
 				if (typeof response.body === "string") {
 					dataToWrite = response.body;
@@ -52,9 +48,6 @@ export const useExportVaultScreen = () => {
 
 				const mimeType =
 					data.format === "csv" ? "text/csv" : "application/json";
-
-				// --- INÍCIO DA LÓGICA DE DOWNLOAD SEGURO ---
-
 				if (Platform.OS === "android") {
 					try {
 						const permissions =

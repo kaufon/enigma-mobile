@@ -55,4 +55,7 @@ export type IconName =
 	| "upload"
 	| "safe"
 	| "fingerprint"
-	| "file";
+	| "file"
+	| "share"
+	| "pie-chart"
+  | "heart-pulse"

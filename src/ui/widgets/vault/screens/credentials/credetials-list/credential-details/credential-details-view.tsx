@@ -5,6 +5,7 @@ import { Icon } from "@/src/ui/widgets/global/components/icon";
 import { useToast } from "@/src/hooks/use-toast";
 import type { CredentialDto } from "@/src/core/dtos/credentials";
 import { useState } from "react";
+import { CreateShareForm } from "@/src/ui/widgets/share/create-share-form";
 
 const DetailField = ({
 	label,
@@ -16,7 +17,7 @@ const DetailField = ({
 
 	const copyToClipboard = async () => {
 		if (!value) return;
-		await Clipboard.setString(value); 
+		await Clipboard.setString(value);
 		show(`${label} copiado!`, "success");
 	};
 
@@ -61,6 +62,7 @@ export const CredentialDetailsView = ({
 	credential,
 	folderName,
 }: Props) => {
+	const [isShareModalOpen, setShareModalOpen] = useState(false); // 👈 Novo estado
 	if (isLoading) {
 		return <ActivityIndicator size="large" className="flex-1" />;
 	}
@@ -71,7 +73,21 @@ export const CredentialDetailsView = ({
 
 	return (
 		<View className="flex-1 bg-background-500 p-4">
-			<Stack.Screen options={{ title: credential.title }} />
+			<Stack.Screen
+				options={{
+					title: credential.title,
+					headerRight: () => (
+						<View className="flex-row items-center space-x-2 pr-2">
+							<Pressable
+								onPress={() => setShareModalOpen(true)}
+								className="p-2"
+							>
+								<Icon name="share" size={22} color="primary" />
+							</Pressable>
+						</View>
+					),
+				}}
+			/>
 
 			<DetailField label="Nome de usuário" value={credential.username} />
 			<DetailField label="Senha" value={credential.password} isSecret />
@@ -84,6 +100,11 @@ export const CredentialDetailsView = ({
 					<Text className="text-white font-bold">Editar</Text>
 				</Pressable>
 			</Link>
+			<CreateShareForm
+				isOpen={isShareModalOpen}
+				onClose={() => setShareModalOpen(false)}
+				credentialId={id}
+			/>
 		</View>
 	);
 };

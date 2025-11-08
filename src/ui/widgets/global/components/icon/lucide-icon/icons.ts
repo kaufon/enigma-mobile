@@ -58,6 +58,9 @@ import {
     Turntable,
     Fingerprint,
     File,
+    Send,
+    PieChart,
+    HeartPulse,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -119,5 +122,8 @@ export const ICONS: Record<IconName, LucideIcon> = {
   upload: Upload,
   safe: Turntable,
   fingerprint: Fingerprint,
-  file: File
+  file: File,
+  share: Send,
+  "pie-chart":PieChart,
+  "heart-pulse": HeartPulse
 };

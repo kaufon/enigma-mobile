@@ -22,7 +22,12 @@ export const ConfigurationScreenView = () => {
 					<VaultListItem
 						label="Importar e Exportar"
 						iconName="database"
-						href="/configuration/vault" 
+						href="/configuration/vault"
+					/>
+					<VaultListItem
+						label="Relatórios"
+						iconName="pie-chart"
+						href="/configuration/reports"
 					/>
 				</View>
 			</ScrollView>
