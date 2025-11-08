@@ -59,4 +59,6 @@ export type IconName =
 	| "share"
 	| "pie-chart"
 	| "heart-pulse"
-	| "mail-check";
+	| "mail-check"
+  | "shield-check"
+  | "cloud-download"

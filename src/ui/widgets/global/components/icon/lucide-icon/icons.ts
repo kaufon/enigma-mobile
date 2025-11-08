@@ -62,6 +62,8 @@ import {
     PieChart,
     HeartPulse,
     MailCheck,
+    ShieldCheck,
+    CloudDownload,
 } from "lucide-react-native";
 
 import type { IconName } from "../types/icon-name";
@@ -127,5 +129,7 @@ export const ICONS: Record<IconName, LucideIcon> = {
   share: Send,
   "pie-chart":PieChart,
   "heart-pulse": HeartPulse,
-  "mail-check":MailCheck
+  "mail-check":MailCheck,
+  "shield-check": ShieldCheck,
+  "cloud-download": CloudDownload,
 };
