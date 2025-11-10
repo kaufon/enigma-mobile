@@ -15,7 +15,7 @@ export default function CreateCredentialScreen() {
 		control,
 		folders,
 		isLoadingFolders,
-	} = useRegisterCredentialForm(onSuccess);
+	} = useRegisterCredentialForm({onSuccess});
 	return (
 		<View className="flex-1 bg-background-500 p-4">
 			<Stack.Screen options={{ title: "Nova Credencial" }} />

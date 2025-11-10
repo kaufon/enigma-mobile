@@ -50,7 +50,7 @@ export const ToastProvider = ({ children }: PropsWithChildren) => {
 
   const show = useCallback((message: string, type: ToastType = 'error') => {
     const TITLES = { success: "Sucesso", error: "Erro", warning: "Aviso", info: "Informação" };
-    const newToast = { id: Date.now(), message, type, title: TITLES[type] };
+    const newToast = { id: Date.now() + Math.random(), message, type, title: TITLES[type] };
 
     setToasts((prev) => [...prev, newToast]);
 
