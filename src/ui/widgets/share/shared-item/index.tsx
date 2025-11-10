@@ -6,10 +6,11 @@ type Props = {
 }
 
 export const SharedItemScreen = ({id}:Props) => {
-	const { isLoading, credential, error } = useSharedItemViewModel(id);
+	const { isLoading, credential, error,isOwner } = useSharedItemViewModel(id);
 	return (
 		<SharedItemScreenView
 			isLoading={isLoading}
+      isOwner={isOwner}
 			credential={credential}
 			error={error}
 		/>

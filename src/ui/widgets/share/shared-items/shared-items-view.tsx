@@ -68,7 +68,7 @@ export const SharedItemsScreenView = ({
 									onPress={() => handleCopyshareLink(item.id, item.hash)}
 								>
 									<View className="w-full justify-end items-end">
-										<Icon name="copy" size={18} color="accent" />
+										<Icon name="share-2" size={18} color="accent" />
 									</View>
 								</Button>
 

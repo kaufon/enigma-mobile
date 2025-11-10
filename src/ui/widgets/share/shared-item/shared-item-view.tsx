@@ -1,11 +1,12 @@
 import { ActivityIndicator, Pressable, View } from "react-native";
-import { Stack, useLocalSearchParams } from "expo-router";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Text } from "@/src/ui/widgets/global/components/Themed";
 import { Icon } from "@/src/ui/widgets/global/components/icon";
 import * as Clipboard from "expo-clipboard";
 import { useToast } from "@/src/hooks/use-toast";
 import { useState } from "react";
 import { CredentialDto } from "@/src/core/dtos/credentials";
+import { useAuthContext } from "@/src/ui/widgets/global/hooks";
 
 const DetailField = ({
 	label,
@@ -50,42 +51,71 @@ const DetailField = ({
 	);
 };
 type Props = {
-  isLoading: boolean;
-  credential: Partial<CredentialDto> | null;
-  error: string | null;
-}
-export const SharedItemScreenView = ({isLoading,credential,error}:Props)=> {
+	isLoading: boolean;
+	credential: Partial<CredentialDto> | null;
+	error: string | null;
+  isOwner: boolean;
+};
+export const SharedItemScreenView = ({
+	isLoading,
+	credential,
+	error,
+  isOwner,
+}: Props) => {
+	const router = useRouter();
 
+	const goBackToVault = () => {
+		router.replace("/(protected)/share");
+	};
 
-  if (isLoading) {
-    return <ActivityIndicator size="large" className="flex-1 bg-background-500" />;
-  }
-  
-  if (error) {
-     return (
-        <View className="flex-1 bg-background-500 p-4 items-center justify-center">
-            <Icon name="danger" size={40} color="danger"/>
-            <Text className="text-lg font-bold text-accent-500">Erro ao carregar item</Text>
-            <Text className="text-neutral-500 text-center mt-2">{error}</Text>
-        </View>
-     );
-  }
+	if (isLoading) {
+		return (
+			<ActivityIndicator size="large" className="flex-1 bg-background-500" />
+		);
+	}
 
-  if (!credential) {
-    return <Text>Item não encontrado.</Text>;
-  }
+	if (error) {
+		return (
+			<View className="flex-1 bg-background-500 p-4 items-center justify-center">
+				<Icon name="danger" size={40} color="danger" />
+				<Text className="text-lg font-bold text-accent-500">
+					Erro ao carregar item
+				</Text>
+				<Text className="text-neutral-500 text-center mt-2">{error}</Text>
+			</View>
+		);
+	}
 
-  return (
-    <View className="flex-1 bg-background-500 p-4">
-      <Stack.Screen options={{ title: "Item Compartilhado" }} />
-      <Text className="text-2xl font-bold text-accent-500 mb-4">{credential.title}</Text>
-      
-      <DetailField label="Nome de usuário" value={credential.username} />
-      <DetailField label="Senha" value={credential.password} isSecret />
-      
-      <Text className="text-neutral-500 mt-6 text-center">
-        Este é um item compartilhado. Para sua segurança, copie os dados e feche esta tela.
-      </Text>
-    </View>
-  );
-}
+	if (!credential) {
+		return <Text>Item não encontrado.</Text>;
+	}
+
+	return (
+		<View className="flex-1 bg-background-500 p-4">
+			<Text className="text-2xl font-bold text-accent-500 mb-4">
+				{credential.title}
+			</Text>
+			<Stack.Screen
+				options={{
+					title: "Item Compartilhado",
+					headerRight: () =>
+						!isOwner && (
+							<Pressable onPress={goBackToVault} className="pr-4">
+								<Text className="text-primary-500 text-base font-bold">
+									Fechar
+								</Text>
+							</Pressable>
+						),
+					headerLeft: () => null,
+				}}
+			/>
+			<DetailField label="Nome de usuário" value={credential.username} />
+			<DetailField label="Senha" value={credential.password} isSecret />
+
+			<Text className="text-neutral-500 mt-6 text-center">
+				Este é um item compartilhado. Para sua segurança, copie os dados e feche
+				esta tela.
+			</Text>
+		</View>
+	);
+};

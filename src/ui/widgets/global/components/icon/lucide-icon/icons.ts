@@ -132,4 +132,5 @@ export const ICONS: Record<IconName, LucideIcon> = {
   "mail-check":MailCheck,
   "shield-check": ShieldCheck,
   "cloud-download": CloudDownload,
+  "share-2": Share2
 };

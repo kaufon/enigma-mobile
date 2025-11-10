@@ -62,3 +62,4 @@ export type IconName =
 	| "mail-check"
   | "shield-check"
   | "cloud-download"
+  | "share-2"

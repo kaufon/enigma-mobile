@@ -74,7 +74,6 @@ export const CreateShareFormView = ({
 			isOpen={isOpen}
 			onClose={onClose}
 			title="Compartilhar Credencial"
-			description=""
 			children={
 				<View className="gap-4">
 					<Select

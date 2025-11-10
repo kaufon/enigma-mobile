@@ -19,9 +19,9 @@ export const useSharedItemViewModel = (id: string) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [error, setError] = useState<string | null>(null);
 	const { baseURL } = useRest();
-	const { dev_key } = useLocalSearchParams<{ dev_key?: string }>();
-  const {shareService} = useRest()
-  const {decrypt} = useEncryption()
+	const { owner_key } = useLocalSearchParams<{ owner_key?: string }>();
+	const { shareService } = useRest();
+	const { decrypt } = useEncryption();
 
 	const processLink = useCallback(
 		async (url: string | null) => {
@@ -29,17 +29,15 @@ export const useSharedItemViewModel = (id: string) => {
 			setError(null);
 			try {
 				let keyHex: string | undefined;
-
-				if (dev_key) {
+				if (owner_key) {
 					console.warn(
 						"MODO DE TESTE (Expo Go): Usando chave do parâmetro dev_key",
 					);
-					keyHex = dev_key;
-				}
-				else if (url && url.includes("#")) {
+					keyHex = owner_key;
+				} else if (url && url.includes("#")) {
 					keyHex = url.split("#")[1];
 				}
-        console.log(url)
+				console.log(url);
 
 				if (!keyHex) {
 					throw new Error("Chave de descriptografia não encontrada no link.");
@@ -64,8 +62,8 @@ export const useSharedItemViewModel = (id: string) => {
 				setIsLoading(false);
 			}
 		},
-		[id, baseURL, dev_key],
-	); 
+		[id, baseURL, owner_key],
+	);
 
 	useEffect(() => {
 		const subscription = Linking.addEventListener("url", (event) => {
@@ -74,16 +72,18 @@ export const useSharedItemViewModel = (id: string) => {
 		});
 
 		const checkInitialUrl = async () => {
-			if (dev_key) {
+			if (owner_key) {
 				processLink(null);
 			} else {
-				const url = await Linking.getInitialURL();
+				const url = Linking.getLinkingURL();
+				console.log("URL inicial verificada:", url);
 				if (url) {
 					console.log("Link recebido (cold start):", url);
 					processLink(url);
 				} else {
+					console.log("Nenhum link inicial encontrado.");
 					setIsLoading(false);
-					if (!dev_key) {
+					if (!owner_key) {
 						setError("Chave de descriptografia não encontrada.");
 					}
 				}
@@ -95,7 +95,7 @@ export const useSharedItemViewModel = (id: string) => {
 		return () => {
 			subscription.remove();
 		};
-	}, [processLink, dev_key]);
+	}, [processLink, owner_key]);
 
-	return { isLoading, credential, error };
+	return { isLoading, credential, error, isOwner: !!owner_key };
 };
